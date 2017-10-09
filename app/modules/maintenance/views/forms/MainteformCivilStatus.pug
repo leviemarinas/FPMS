@@ -1,0 +1,20 @@
+extends ../../../../templates/Maintemaster
+
+block content
+    div.ui.centerer
+        div.ui.segment.ping.p-adjust
+            div.ui.container
+            div.ui.ribbon.label.huge.inverted.blue 
+                p #{CivilStatus ? 'Edit' : 'Add'} CivilStatus
+            .ui.container.inverted.teal.height3
+                form.ui.form.mleft(method="POST" action=`/maintenance/CivilStatus${CivilStatus ? `/${CivilStatus.strCivilStatusID}?_method=PUT`: '/new'}`)
+                    div.ui.field
+                        label.ui.large.teal.tag CivilStatus Name
+                        input(type="text" name="csname" value= CivilStatus ? CivilStatus.strCivilStatusName : '')
+                    if(!CivilStatus)
+                        div.ui.field
+                            input(type="hidden" name="csid" value=ID)
+                    div#butt.warp2.height2
+                        button#add.ui.labeled.orange.icon.button.rightp(type="submit")
+                            i.add.icon
+                            p #{CivilStatus ? 'Update' : 'Add'}

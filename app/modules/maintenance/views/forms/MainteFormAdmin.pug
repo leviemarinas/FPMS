@@ -1,0 +1,38 @@
+extends ../../../../templates/Maintemaster
+
+block content
+    - var text = typeof incorrect !== 'undefined' ? 'Password Confirmation Do Not Match' : ''
+    div.ui.centerer
+        if text 
+            div.ping.ui.warning.message 
+                i.close.icon
+                div.header #{text}
+                    p Please Try Again
+        div.ui.segment.ping.p-adjust
+            div.ui.container
+            div.ui.ribbon.label.huge.inverted.blue 
+                p #{admin ? 'Edit' : 'Add'} Admin
+                    i.add.icon
+            div.ui.container.inverted.teal.height3
+                form.ui.form.mleft(method="POST" action=`/maintenance/Admin${admin ? `/${admin.strUsername}?_method=PUT` : '/new'}`)
+                    div.ui.field
+                        label.ui.large.teal.tag Faculty 
+                        select.ui.selection.search.dropdown(name="faculty") 
+                            each Faculty in faculties
+                                option(value=Faculty.strFacultyID) #{Faculty.strFacultyFirstname +' '+ Faculty.strFacultySurname}
+                    div.ui.field
+                        label.ui Username
+                        input(type="text" name="adminusername" value= admin ? admin.strUsername : '')
+                    div.ui.field
+                        label.ui Password
+                        input(type="password" name="adminpassword" value= admin ? admin.strPassword : '')
+                    div.ui.field
+                        label.ui Confirm Password
+                        input(type="password" name="adminconfirmpassword")
+                    if(adminpassword===adminconfirmpassword)    
+                        div#butt.warp2.height2
+                            button#add.ui.labeled.orange.icon.button.rightp()
+                                i.add.icon
+                                p #{admin ? 'Update' : 'Add'}
+            
+                

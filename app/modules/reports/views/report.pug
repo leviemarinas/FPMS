@@ -1,0 +1,16 @@
+extends ../../../templates/Reports/Breportmaster
+
+block content
+    div.ui.centerer
+        div.ui.segment.ping.p-adjust
+            div.ui.ribbon.label.inverted.huge.violet
+                label.ui Reports
+            div.adjustright
+                div.ui.huge.right.ribbon.label.violet.adjustright          
+                        label.ui Faculty List
+            div.ui.simple.dropdown.item Reports
+                i.dropdown.icon
+                div.ui.menu
+                    div.header.height5 Choose Report
+                    each period in periods
+                        a.ui.item(href=`/reports/${period.strPeriodicalID}`) #{period.strPeriodicalName}

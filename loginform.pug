@@ -1,0 +1,11 @@
+extends ../../../../templates/base 
+
+form.ui.form(method="POST" action="/login")
+    div.six.wide.field
+    label Username
+        input(type="text" name="username" placeholder="asdecers@example.com")
+    div.six.wide.field
+        label Password
+        input(type="password" name="password")
+    button.ui.basic.button(type="submit" value="Login")
+        i.sign.in.icon Login

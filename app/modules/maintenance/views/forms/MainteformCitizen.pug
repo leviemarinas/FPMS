@@ -1,0 +1,21 @@
+extends ../../../../templates/Maintemaster
+
+block content
+    div.ui.centerer
+        div.ui.segment.ping.p-adjust
+            div.ui.container
+            div.ui.ribbon.label.huge.inverted.blue 
+                p #{citizenship ? 'Edit' : 'Add'} Citizenship
+            .ui.container.inverted.teal.height3
+                form.ui.form.mleft(method="POST" action=`/maintenance/Citizenship${citizenship ? `/${citizenship.strCitizenshipID}?_method=PUT`: '/new'}`)
+                    div.ui.field
+                        label.ui.large.teal.tag Citizenship Name
+                        input(type="text" name="ctname" value= citizenship ? citizenship.strCitizenshipName : '')
+                    if(!citizenship)
+                        div.ui.field
+                            input(type="hidden" name="ctid" value=ID)
+                    div#butt.warp2.height2
+                        button#add.ui.labeled.orange.icon.button.rightp(type="submit")
+                            i.add.icon
+                            p #{citizenship ? 'Update' : 'Add'}
+                

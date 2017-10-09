@@ -1,0 +1,23 @@
+extends ../../../../templates/Maintemaster
+
+block content
+    div.ui.centerer
+        div.ui.segment.ping.p-adjust
+            div.ui.container
+            div.ui.ribbon.label.huge.inverted.blue 
+                p Function Types
+                    i.configure.icon
+            a.button.green.right.floated.ui.basic.button.huge(href="/maintenance/Functions/new")
+                i.add.icon
+                label Add Function
+            table.ui.padded.yellow.table   
+                th
+                    tr
+                        th.eleven.wide.tp.t-align Functions
+                        th.tp Actions  
+                    each ftype in ftypes    
+                        tr
+                            td=ftype.strFuncRefName
+                            td
+                                a(href=`/maintenance/Functions/${ftype.strFuncRefID}`): i.ui.green.address.edit.icon.large
+                                a(href=`/maintenance/Functions/${ftype.strFuncRefID}/remove`): i.ui.green.remove.icon.large

@@ -1,0 +1,23 @@
+extends ../../../../templates/Maintemaster
+
+block content
+    div.ui.centerer
+        div.ui.segment.ping.p-adjust
+            div.ui.container
+            div.ui.ribbon.label.huge.inverted.blue 
+                p Periodical
+                    i.configure.icon
+            a.button.green.right.floated.ui.basic.button.huge(href="/maintenance/Periodical/new")
+                i.add.icon
+                label Add Period
+            table.ui.padded.yellow.table   
+                th
+                    tr
+                        th.eleven.wide.tp.t-align Periods
+                        th.tp Actions  
+                    each period in periods    
+                        tr
+                            td=period.strPeriodicalName
+                            td
+                                a(href=`/maintenance/Periodical/${period.strPeriodicalID}`): i.ui.green.address.edit.icon.large
+                                a(href=`/maintenance/Periodical/${period.strPeriodicalID}/remove`): i.ui.green.remove.icon.large

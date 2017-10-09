@@ -1,0 +1,23 @@
+extends ../../../../templates/Maintemaster
+
+block content
+    div.ui.centerer
+        div.ui.segment.ping.p-adjust
+            div.ui.container
+            div.ui.ribbon.label.huge.inverted.blue 
+                p Function Levels
+                    i.configure.icon
+            a.button.green.right.floated.ui.basic.button.huge(href="/maintenance/FunctionLevel/new")
+                i.add.icon
+                |&nbsp; Add Function Level
+            table.ui.padded.yellow.table   
+                th
+                    tr
+                        th.eleven.wide.tp.t-align Function Level
+                        th.tp Actions  
+                    each level in levels
+                        tr
+                            td= level.strFunctLevelName
+                            td
+                                a(href=`/maintenance/FunctionLevel/${level.strFunctLevelID}`): i.ui.green.address.edit.icon.large
+                                a(href=`/maintenance/FunctionLevel/${level.strFunctLevelID}/remove`): i.ui.green.remove.icon.large

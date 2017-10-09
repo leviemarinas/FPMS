@@ -1,0 +1,34 @@
+extends ../../../templates/Reports/Breportmaster
+
+block content
+    div.ui.centerer
+            div.ui.segment.ping.p-adjust
+                div.ui.ribbon.label.inverted.huge.violet
+                    label.ui Reports
+                div.adjustright
+                    div.ui.huge.right.ribbon.label.violet.adjustright          
+                        label.ui Faculty List
+                div.ui.simple.dropdown.item Reports
+                    i.dropdown.icon
+                    div.ui.menu
+                        div.header Choose Report
+                        each period in periods
+                            a.ui.item(href=`/reports/${period.strPeriodicalID}`) #{period.strPeriodicalName}
+                div.height4
+                    table.ui.compact.celled.large.violet.table 
+                        th
+                            tr
+                                th.three.wide.tp.t-align Faculty Name
+                                each report in reports
+                                    th.t-align= report.strReportTypeName
+                                    th.t-align Date Submitted
+                                    th.t-align Attachments
+                        th                           
+                            tr
+                                td.tp.t-align
+                                th.t-align
+                                    div.ui.read-only.checkbox
+                                        input(type="checkbox" checked tabindex="0" class="hidden")
+                                        label
+                                td.t-align
+                                td.t-align

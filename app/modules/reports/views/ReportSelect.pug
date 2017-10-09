@@ -1,0 +1,40 @@
+extends ../../../templates/Reports/Breportmaster
+
+block content
+    div.ui.centerer
+        div.ui.segment.ping.p-adjust
+            div.ui.ribbon.label.inverted.huge.green.adjustleft
+                label.ui Semestral Reports
+            div.ui.huge.adjustleft.green.label
+                label.ui Faculty                                
+            div.ui.two.fields.height7.pright
+                form.ui.form(method="POST" action=`/reports/Rep/Assign`)
+                    div.ui.two.fields
+                        div.ui.field
+                            label.ui Select Faculty
+                            select#multi-select.search.multiple.selection.dropdown(name="faculty[]")
+                                each prof in profs
+                                    option(value=prof.strFacultyID) #{prof.strFacultySurname +' '+prof.strFacultyFirstname}
+                    div.ui.three.fields
+                        div.ui.field
+                            label Report Type
+                            select#select.ui.search.selection.dropdown(name="type")
+                                each rep in reps
+                                    option(value=rep.strReportTypeID) #{rep.strReportTypeName}
+                        div.ui.field
+                            label Deadline
+                            input(type="Date" name="deadline" placeholder="Deadline")
+                            input(type="hidden" name="rsid" value=ID)
+                        div.height2
+                            button#add.ui.labeled.orange.icon.button.rightp()
+                                i.add.icon
+                                p Assign
+        
+    script.
+        $('#select','').dropdown();
+        $('#multi-select')
+            .dropdown()
+        ;
+        $('.menu .item')
+            .tab()
+        ;

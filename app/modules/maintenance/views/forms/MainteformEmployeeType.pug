@@ -1,0 +1,20 @@
+extends ../../../../templates/Maintemaster
+
+block content
+    div.ui.centerer
+        div.ui.segment.ping.p-adjust
+            div.ui.container
+            div.ui.ribbon.label.huge.inverted.blue 
+                p #{EmployeeType ? 'Edit' : 'Add'} Employee Type
+            .ui.container.inverted.teal.height3
+                form.ui.form.mleft(method="POST" action=`/maintenance/EmployeeType${EmployeeType ? `/${EmployeeType.strEmployeeTypeID}?_method=PUT`: '/new'}`)
+                    div.ui.field
+                        label.ui.large.teal.tag Employee Type
+                        input(type="text" name="etname" value= EmployeeType ? EmployeeType.strEmployeeTypeName : '')
+                    if(!EmployeeType)
+                        div.ui.field
+                            input(type="hidden" name="etid" value=ID)
+                    div#butt.warp2.height2
+                        button#add.ui.labeled.orange.icon.button.rightp(type="submit")
+                            i.add.icon
+                            p #{EmployeeType ? 'Update' : 'Add'}

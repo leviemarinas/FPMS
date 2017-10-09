@@ -1,0 +1,34 @@
+extends ../../../../templates/master
+
+block content
+    h1.title
+        span.fa.fa-users
+        | &nbsp; Users
+    
+    a.button.is-primary.pull-right(href="/admin/users/new")
+        span.fa.fa-plus
+        | &nbsp; Add User
+    table.table.is-fullwidth
+        //- thead
+        //-     tr
+        //-         th ID
+        //-         th Name
+        //-         th Age
+        //-         th E-mail
+        //-         th Actions
+        
+        tbody
+            each user in users
+                tr
+                    td= user.strFacultyID
+                    td= user.strFacultyFirstname
+                    td= user.strFacultyMiddlename
+                    td= user.strFacultySurname
+                    td= user.dtmFacultyBday
+                    td= user.strFacultyAddress
+                    td= user.strFacultyCivilStatus
+                    td= user.strFacultyCitizenship
+                    td= user.strFacultyConNum
+                    td= user.strFacultyEmail
+                    td= user.enumFacultyDept
+                    

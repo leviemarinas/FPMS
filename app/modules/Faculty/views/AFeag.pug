@@ -1,0 +1,25 @@
+extends ../../../templates/CSmaster
+
+block content
+    div.ui.centerer.height7
+        div.ui.segment.ping.p-adjust
+            div.ui.ribbon.label.inverted.huge.teal.adjustleft
+                label.ui Educational Attainment
+            div.height7
+            div.ui.container.inverted.teal
+                form.ui.form.mleft(method="POST" action="/faculty/add/EAg")
+                    div#gs.height2
+                        div.ui.three.fields
+                            div.ui.field
+                                label.ui.larg.tag Graduate Studies
+                                input(type="text" name="gstudies2" placeholder="Graduate Studies")
+                            div.ui.field
+                                label.ui.large.teal.tag Units
+                                input(type="text" name="units2" placeholder="Units")
+                            div.ui.field
+                                label.ui.large.teal.tag Date
+                                input(type="text" name="date2" placeholder="Date")
+                        div#butt.wrapper.height
+                            button#add.ui.labeled.orange.icon.button.rightp(type="submit")
+                                i.add.icon
+                                p next

@@ -1,0 +1,35 @@
+extends ../../../templates/Maintemaster
+
+block content
+    div.ui.centerer
+        div.ui.segment.ping.p-adjust
+            div.ui.container
+            div.ui.ribbon.label.huge.inverted.blue
+                p Maintenance Categories
+            div.ui.segment
+                a.item(href="/maintenance/Admin") ADMIN
+            div.ui.segment
+                a.item(href="/maintenance/CivilStatus") CIVIL STATUS
+            div.ui.segment
+                a.item(href="/maintenance/Citizenship") CITIZENSHIP
+            div.ui.segment
+                a.item(href="/maintenance/EducLevel") EDUCATIONAL LEVEL
+            div.ui.segment
+                a.item(href="/maintenance/EmployeeType") EMPLOYEE TYPE
+            div.ui.segment
+                a.item(href="/maintenance/Functions") FUNCTIONS
+            div.ui.segment
+                a.item(href="/maintenance/FunctionLevel") FUNCTION LEVEL
+            div.ui.segment
+                a.item(href="/maintenance/FacultyRank") FACULTY RANK
+            div.ui.segment
+                a.item(href="/maintenance/Periodical") PERIODICAL REPORT
+    script.
+        $('.ui.menu .item')
+        .tab({
+            history : true,
+            historyType : 'state',
+            // base url for all other path changes
+            path        : '/my/base/url'
+        })
+        ;

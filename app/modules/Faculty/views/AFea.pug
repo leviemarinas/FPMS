@@ -1,0 +1,47 @@
+extends ../../../templates/CSmaster
+
+block content
+    div.ui.centerer
+        div.ui.centerer.height7
+            div.ui.segment.ping.p-adjust
+                div.ui.ribbon.label.inverted.huge.teal.adjustleft
+                    label.ui Educational Attainment
+                div.height7
+                div.ui.container.inverted.teal
+                    form.ui.form.mleft(method="POST" action="/faculty/add/EA")
+                        div.ui.two.fields
+                            div.ui.field
+                                label.ui.large.teal.tag Elementary
+                                input(type="text" name="elementary" placeholder="Elementary")
+                            div.ui.field
+                                label.ui.large.teal.tag Date Graduated
+                                input(type="text" name="dategrade" placeholder="Date")            
+                        div.ui.two.fields
+                            div.ui.field
+                                label.ui.large.teal.tag High School
+                                input(type="text" name="highschool" placeholder="High School")
+                            div.ui.field
+                                label.ui.large.teal.tag Date Graduated
+                                input(type="text" name="dategradhs" placeholder="Date")
+                        div.ui.two.fields
+                            div.ui.field
+                                label.ui.large.teal.tag College
+                                input(type="text" name="college" placeholder="College")
+                            div.ui.field
+                                label.ui.large.teal.tag Date Graduated
+                                input(type="text" name="dategradco" placeholder="Date")
+                        div#gs.height2
+                            div.ui.three.fields
+                                div.ui.field
+                                    label.ui.larg.tag Graduate Studies
+                                    input(type="text" name="gstudies" placeholder="Graduate Studies")
+                                div.ui.field
+                                    label.ui.large.teal.tag Units
+                                    input(type="text" name="units" placeholder="Units")
+                                div.ui.field
+                                    label.ui.large.teal.tag Date
+                                    input(type="text" name="dategs" placeholder="Date")
+                        div#butt.warp2.height
+                            button#add.ui.labeled.orange.icon.button.rightp(type="submit")
+                                i.add.icon
+                                p next

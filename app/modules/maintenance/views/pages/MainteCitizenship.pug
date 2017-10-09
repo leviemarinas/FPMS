@@ -1,0 +1,24 @@
+extends ../../../../templates/Maintemaster
+
+block content
+    div.ui.centerer
+        div.ui.segment.ping.p-adjust
+            div.ui.container
+            div.ui.ribbon.label.huge.inverted.blue 
+                p Citizenship
+                    i.configure.icon
+            a.button.green.right.floated.ui.basic.button.huge(href="/maintenance/Citizenship/new")
+                i.add.icon
+                |&nbsp; Add Citizenship
+            table.ui.padded.yellow.table   
+                th
+                    tr
+                        th.eleven.wide.tp.t-align Citizenship
+                        th.tp Actions  
+                    each citizen in citizens        
+                        tr
+                            td= citizen.strCitizenshipName
+                            td
+                                a(href=`/maintenance/Citizenship/${citizen.strCitizenshipID}`): i.ui.green.address.edit.icon.large
+                                | &nbsp;
+                                a(href=`/maintenance/Citizenship/${citizen.strCitizenshipID}/remove`): i.ui.green.remove.icon.large

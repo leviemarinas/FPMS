@@ -1,0 +1,37 @@
+extends ../../../templates/CSmaster
+
+block content
+    div.ui.s.adjusted.positioning.ping
+            div.ui.container
+                div.ui.ribbon.label.inverted.black.large
+                    h3 Personal Information
+                div.ui.segment.height.b-adjusted
+                    each FPprofile in FPprofiles
+                        img.ui.image(src=`${FPprofile.strFacultyImageUrl}`, alt="/images/wireframe/image.png"  height="200px" width="200px")
+                        div.ui.container.height
+                            table.ui.padded.teal.table
+                                tbody
+                                    tr
+                                        td.three.wide Name
+                                        td= FPprofile.strFacultyName
+                                    tr 
+                                        td Date of Birth
+                                        td= FPprofile.dtmFacultyBday
+                                    tr 
+                                        td Gender
+                                        td= FPprofile.enumFacultyGender
+                                    tr
+                                        td Civil Status
+                                        td= FPprofile.strCivilStatusName
+                                    tr
+                                        td Citizenship
+                                        td= FPprofile.strCitizenshipName
+                                    tr 
+                                        td Address
+                                        td= FPprofile.strFacultyAddress
+                                    tr 
+                                        td Contact No.
+                                        td= FPprofile.strFacultyConNum
+                                    tr 
+                                        td Email Address
+                                        td= FPprofile.strFacultyEmail 

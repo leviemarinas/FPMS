@@ -1,0 +1,36 @@
+extends ../../../templates/ITmaster.pug
+
+block content
+    div.ui.centerer
+        div.ui.segment.ping.positioning.p-adjust
+            div.ui.container
+            div.ui.ribbon.label.inverted.yellow
+                label.ui.textcolor Department of Information Technology Faculty 
+            a.button.huge.green.right.floated.ui.basic.button(href=`/faculty/add/P`)
+                i.add.user.icon
+                label Add Faculty
+            table.ui.compact.celled.yellow.table 
+                th
+                    tr
+                        th.one.wide.tp.t-align ID
+                        th.t-align.four.wide Last Name
+                        th.t-align.four.wide First Name
+                        th.t-align.four.wide Middle Name
+                        th.t-align.tp.four.wide Actions
+                    
+                th
+                    each Fprofile in Fprofiles
+                        tr
+                            th.tp.t-align: a(href=`/faculty/IT/${Fprofile.strFacultyID}`)= Fprofile.strFacultyID
+                            th.t-align= Fprofile.strFacultySurname
+                            th.t-align= Fprofile.strFacultyFirstname
+                            th.t-align= Fprofile.strFacultyMiddlename
+                            th.t-align.four.wide
+                                a(href=`/faculty/IT/${Fprofile.strFacultyID}/edit`)
+                                    i.ui.green.address.edit.icon.large
+                                a(href=`/faculty/IT/${Fprofile.strFacultyID}/remove`)
+                                    i.ui.green.address.remove.user.icon.large
+                            
+                
+
+            

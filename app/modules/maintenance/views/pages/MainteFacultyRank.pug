@@ -1,0 +1,23 @@
+extends ../../../../templates/Maintemaster
+
+block content
+    div.ui.centerer
+        div.ui.segment.ping.p-adjust
+            div.ui.container
+            div.ui.ribbon.label.huge.inverted.blue 
+                p Faculty Rank
+                    i.configure.icon
+            a.button.green.right.floated.ui.basic.button.huge(href="/maintenance/FacultyRank/new")
+                i.add.icon
+                |&nbsp; Add Rank
+            table.ui.padded.yellow.table   
+                th
+                    tr
+                        th.eleven.wide.tp.t-align Rank
+                        th.tp Actions  
+                    each rank in ranks
+                        tr
+                            td= rank.strFacultyRankName
+                            td
+                                a(href=`/maintenance/FacultyRank/${rank.strFacultyRankRefID}`): i.ui.green.address.edit.icon.large
+                                a(href=`/maintenance/FacultyRank/${rank.strFacultyRankRefID}/remove`): i.ui.green.remove.icon.large

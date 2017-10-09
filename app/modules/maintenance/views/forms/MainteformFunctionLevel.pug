@@ -1,0 +1,20 @@
+extends ../../../../templates/Maintemaster
+
+block content
+    div.ui.centerer
+        div.ui.segment.ping.p-adjust
+            div.ui.container
+            div.ui.ribbon.label.huge.inverted.blue 
+                p #{FunctLevel ? 'Edit' : 'Add'} Function Level
+            .ui.container.inverted.teal.height3
+                form.ui.form.mleft(method="POST" action=`/maintenance/FunctionLevel${FunctLevel ? `/${FunctLevel.strFunctLevelID}?_method=PUT`: '/new'}`)
+                    div.ui.field
+                        label.ui.large.teal.tag Function Level
+                        input(type="text" name="flname" value= FunctLevel ? FunctLevel.strFunctLevelName : '')
+                    if(!FunctLevel)
+                        div.ui.field
+                            input(type="hidden" name="flid" value=ID)
+                    div#butt.warp2.height2
+                        button#add.ui.labeled.orange.icon.button.rightp(type="submit")
+                            i.add.icon
+                            p #{FunctLevel ? 'Update' : 'Add'}

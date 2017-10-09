@@ -1,0 +1,24 @@
+extends ../../../../templates/Maintemaster
+
+block content
+    div.ui.centerer
+        div.ui.segment.ping.p-adjust
+            div.ui.container
+            div.ui.ribbon.label.huge.inverted.blue 
+                p Civil Status
+                    i.configure.icon
+            a.button.green.right.floated.ui.basic.button.huge(href="/maintenance/CivilStatus/new")
+                i.add.icon
+                |&nbsp; Add Civil Status
+            table.ui.padded.yellow.table   
+                th
+                    tr
+                        th.eleven.wide.tp.t-align Civil Status
+                        th.tp Actions  
+                    each civil in civils    
+                        tr
+                            td=civil.strCivilStatusName
+                            td
+                                a(href=`/maintenance/CivilStatus/${civil.strCivilStatusID}`): i.ui.green.address.edit.icon.large
+                                a(href=`/maintenance/CivilStatus/${civil.strCivilStatusID}/remove`): i.ui.green.remove.icon.large
+                

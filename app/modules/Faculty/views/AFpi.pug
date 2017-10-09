@@ -1,0 +1,71 @@
+extends ../../../templates/CSmaster
+
+block content
+    div.ui.centerer
+        div.ui.segment.ping.p-adjust
+            div
+            div.ui.ribbon.label.inverted.huge.teal.adjustleft
+                label.ui Personal Information
+            div.height7
+            div.ui.container.inverted.teal
+                form.ui.form.mleft(method="POST" action="/faculty/add/P")
+                    div.ui.three.fields
+                        div.ui.field
+                            label.ui.large.teal.tag Lastname
+                            input(type="text" name="lastname" placeholder="Last Name")
+                        div.ui.field
+                            label.ui.large.teal.tag Firstname
+                            input(type="text" name="firstname" placeholder="First Name")
+                        div.ui.field
+                            label.ui.large.teal.tag Middlename
+                            input(type="text" name="middlename" placeholder="Middle Name")
+                        input(type="hidden" name="FID" value= ID)
+                    div.field
+                        div.ui.field    
+                            label.ui.large.teal.tag Address
+                            input(type="text" name="address" placeholder="Address")
+                    div.ui.three.fields
+                        div.ui.field
+                            label.ui.large.teal.tag Birthday
+                            input(type="date" name="birthday" placeholder="mm/dd/yy")
+                        div.ui.field
+                            label.ui.large.teal.tag Gender
+                            select.ui.selection.search.dropdown(name="gender") 
+                                option(value=Male) Male
+                                option(value=Male) Female
+                        div.ui.field
+                            label.ui.large.teal.tag Department
+                            select.ui.selection.search.dropdown(name="dept") 
+                                each dept in depts
+                                    option(value=dept.strDepartmentID) #{dept.strDepartmentName}
+                    div.ui.three.fields
+                        div.ui.field
+                            label.ui.large.teal.tag Civil Status
+                            select.ui.selection.search.dropdown(name="civilstatus") 
+                                each Cs in CS
+                                    option(value=Cs.strCivilStatusID) #{Cs.strCivilStatusName}
+                        div.ui.field
+                            label.ui.large.teal.tag Citizenship
+                            select.ui.selection.search.dropdown(name="citizenship") 
+                                each Ct in CT
+                                    option(value=Ct.strCitizenshipID) #{Ct.strCitizenshipName}
+                        div.ui.field
+                            label.ui.large.teal.tag Employee Type
+                            select.ui.selection.search.dropdown(name="employee") 
+                                each Emp in emp
+                                    option(value=Emp.strEmployeeTypeID) #{Emp.strEmployeeTypeName}
+                    div.ui.three.fields
+                        div.ui.field
+                            label.ui.large.teal.tag Mobile
+                            input(type="text" name="mobile" placeholder="+63")
+                        div.ui.field
+                            label.ui.large.teal.tag Email Address
+                            input(type="text" name="emailadd" placeholder="google@example.com")
+                        div.ui.field
+                            label.ui.large.teal.tag Date Hired
+                            input(type="date" name="doh" placeholder="Date")
+                    div.warp.height
+                        button.ui.labeled.orange.icon.button.rightp.field(type="submit" value="submit")
+                            i.add.icon
+                            p next        
+    

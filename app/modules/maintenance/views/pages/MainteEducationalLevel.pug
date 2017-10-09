@@ -1,0 +1,24 @@
+extends ../../../../templates/Maintemaster
+
+block content
+    div.ui.centerer
+        div.ui.segment.ping.p-adjust
+            div.ui.container
+            div.ui.ribbon.label.huge.inverted.blue 
+                p Educational Level
+                    i.configure.icon
+            a.button.green.right.floated.ui.basic.button.huge(href="/maintenance/EducLevel/new")
+                i.add.icon
+                label Add Educational Level
+            table.ui.padded.yellow.table   
+                th
+                    tr
+                        th.eleven.wide.tp.t-align Educational Level
+                        th.tp Actions  
+                    each educ in educs
+                        tr
+                            td= educ.strEducLevelName
+                            td
+                                a(href=`/maintenance/EducLevel/${educ.strEducLevelID}`): i.ui.green.address.edit.icon.large
+                                a(href=`/maintenance/EducLevel/${educ.strEducLevelID}/remove`): i.ui.green.remove.icon.large
+                

@@ -1,0 +1,20 @@
+extends ../../../../templates/Maintemaster
+
+block content
+    div.ui.centerer
+        div.ui.segment.ping.p-adjust
+            div.ui.container
+            div.ui.ribbon.label.huge.inverted.blue 
+                p #{FacultyRank ? 'Edit' : 'Add'} Faculty Rank
+        .ui.container.inverted.teal.height3
+                form.ui.form.mleft(method="POST" action=`/maintenance/FacultyRank${FacultyRank ? `/${FacultyRank.strFacultyRankRefID}?_method=PUT`: '/new'}`)
+                    div.ui.field
+                        label.ui.large.teal.tag Faculty Rank
+                        input(type="text" name="frname" value= FacultyRank ? FacultyRank.strFacultyRankName : '')
+                    if(!FacultyRank)
+                        div.ui.field
+                            input(type="hidden" name="frid" value=ID)
+                    div#butt.warp2.height2
+                        button#add.ui.labeled.orange.icon.button.rightp(type="submit")
+                            i.add.icon
+                            p #{FacultyRank ? 'Update' : 'Add'}

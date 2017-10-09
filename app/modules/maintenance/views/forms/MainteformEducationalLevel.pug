@@ -1,0 +1,20 @@
+extends ../../../../templates/Maintemaster
+
+block content
+    div.ui.centerer
+        div.ui.segment.ping.p-adjust
+            div.ui.container
+            div.ui.ribbon.label.huge.inverted.blue 
+                p #{EducLevel ? 'Edit' : 'Add'} Educational Level
+            .ui.container.inverted.teal.height3
+                form.ui.form.mleft(method="POST" action=`/maintenance/EducLevel${EducLevel ? `/${EducLevel.strEducLevelID}?_method=PUT`: '/new'}`)
+                    div.ui.field
+                        label.ui.large.teal.tag Educational Level
+                        input(type="text" name="elname" value= EducLevel ? EducLevel.strEducLevelName : '')
+                    if(!EducLevel)
+                        div.ui.field
+                            input(type="hidden" name="elid" value=ID)
+                    div#butt.warp2.height2
+                        button#add.ui.labeled.orange.icon.button.rightp(type="submit")
+                            i.add.icon
+                            p #{EducLevel ? 'Update' : 'Add'}

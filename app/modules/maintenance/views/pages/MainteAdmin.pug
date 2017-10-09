@@ -1,0 +1,23 @@
+extends ../../../../templates/Maintemaster
+
+block content
+    div.ui.centerer
+        div.ui.segment.ping.p-adjust
+            div.ui.container
+            div.ui.ribbon.label.huge.inverted.blue 
+                p Admin
+                    i.configure.icon
+            a.button.green.right.floated.ui.basic.button.huge(href="/maintenance/Admin/new")
+                i.add.icon
+                |&nbsp; Add Admin Account
+            table.ui.padded.yellow.table   
+                th
+                    tr
+                        th.eleven.wide.tp.t-align Admin Username
+                        th.tp Actions  
+                    each admin in admins        
+                        tr
+                            td= admin.strUsername
+                            td
+                                a(href=`/maintenance/Admin/${admin.strUsername}`): i.ui.green.address.edit.icon.large
+                                a(href=`/maintenance/Admin/${admin.strUsername}/remove`): i.ui.green.remove.icon.large

@@ -1,0 +1,15 @@
+extends ../../../templates/base
+
+block body
+    div.ui.container
+        div.ui.middle.teal.inverted.segment
+                form.ui.form(method="POST" action="/login")
+                    div.six.wide.field
+                        label.white Username
+                        input(type="text" name="username" placeholder="Username")
+                    div.six.wide.field
+                        label.ui.teal Password
+                        input(type="password" name="password")
+                    button.ui.basic.button.six.wide.green.inverted.field(type="submit" value="Login")
+                        i.sign.in.icon 
+                        p Login

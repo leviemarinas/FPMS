@@ -1,0 +1,32 @@
+extends ./base 
+
+block body
+    div.ui.secondary.top.fixed.pointing.menu
+        div.right.menu    
+            a.ui.active.item(href="/index") Home
+            div.ui.simple.dropdown.item Faculty
+                i.dropdown.icon
+                div.menu
+                    div.header Department
+                    a.item(href="/faculty/IT") IT
+                    a.item(href="/faculty/CS")  CS
+            div.ui.simple.dropdown.item Reports
+                i.dropdown.icon
+                div.menu
+                    div.header Types
+                    a.ui.item(href="/reports") Report List
+                    a.ui.item(href="/reports/Rep/Assign") Assign Reports
+            div.ui.simple.dropdown.item Schedule
+                i.dropdown.icon
+                div.menu
+                    div.header Department
+                    a.ui.item(href="/schedule/IT") IT
+                    a.ui.item(href="/schedule/CS") CS
+            a.ui.item(href="/maintenance") Maintenance
+        div.ui.right.menu
+            a.menu.item(href="/logout")     
+                i.sign.out.icon 
+                p Log-out
+    block content
+        div.ui.container
+            div.ui.segment

@@ -1,0 +1,20 @@
+extends ../../../../templates/Maintemaster
+
+block content
+    div.ui.centerer
+        div.ui.segment.ping.p-adjust
+            div.ui.container
+            div.ui.ribbon.label.huge.inverted.blue 
+                p #{FunctionType ? 'Edit' : 'Add'} FunctionType
+            .ui.container.inverted.teal.height3
+                form.ui.form.mleft(method="POST" action=`/maintenance/Functions${FunctionType ? `/${FunctionType.strFuncRefID}?_method=PUT`: '/new'}`)
+                    div.ui.field
+                        label.ui.large.teal.tag FunctionType Name
+                        input(type="text" name="ftname" value= FunctionType ? FunctionType.strFuncRefName : '')
+                    if(!FunctionType)
+                        div.ui.field
+                            input(type="hidden" name="ftid" value=ID)
+                    div#butt.warp2.height2
+                        button#add.ui.labeled.orange.icon.button.rightp(type="submit")
+                            i.add.icon
+                            p #{FunctionType ? 'Update' : 'Add'}

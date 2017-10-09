@@ -1,0 +1,23 @@
+extends ../../../templates/ITmaster
+
+block content
+    div.ui.s.adjusted.positioning.ping
+            div.ui.container
+                div.ui.ribbon.label.inverted.black.large
+                    h3 Functions Attended
+                div.ui.segment.height.b-adjusted
+                    img.ui.small.image(src=`${Profiles[0].strFacultyImageUrl}`, alt="/images/wireframe/image.png")
+                    div.ui.container.height
+                        div.ui.container
+                        table.ui.padded.teal.table
+                            tbody
+                                tr 
+                                    td.five.wide
+                                        label.ui.large.tag.yellow.label Function Level
+                                    td.four.wide Function Name
+                                    td.four.wide Date
+                            each Profile in Profiles        
+                                tr
+                                    td= Profile.strFunctLevelName
+                                    td= Profile.strFuncRefName
+                                    td= Profile.dtmFunctionDate
