@@ -1,0 +1,22 @@
+extends ../../../templates/Maintemaster
+
+block content
+    div.ui.centerer
+        div.ui.segment.ping.p-adjust
+            div.ui.container
+            div.ui.ribbon.label.huge.inverted.blue 
+                p Employee Type
+                    i.configure.icon
+            button.green.right.floated.ui.basic.button.huge
+                i.add.icon
+                |&nbsp; Add Employee Type
+            table.ui.padded.yellow.table   
+                th
+                    tr
+                        th.eleven.wide.tp.t-align Employee Type
+                        th.tp Actions  
+                    tr
+                       td
+                       td
+                        i.ui.green.address.edit.icon.large
+                        i.ui.green.remove.icon.large

@@ -1,0 +1,98 @@
+<html>
+    <head>
+        <title></title>
+        <link rel="stylesheet" href="/Semantic-Ui-CSS-Master/semantic.css">
+        <link rel="stylesheet" href="/Semantic-Ui-CSS-Master/semantic.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+        <script src="/Semantic-UI-CSS-Master/semantic.min.js"></script>
+        <script src="/Semantic-UI-CSS-Master/semantic.js"></script>
+        <style>
+            .pusher
+            {
+                padding-top: 200px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="ui sidebar vertical left inverted menu">
+            <a href="#" class="active item">Personal Information</a>
+            <a href="#" class="item">Educational Background</a>
+            <a href="#" class="item">Functions Attended</a>
+            <a href="#" class="item">Facaulty Ranking</a>
+        </div>
+        <div class="ui compact basic icon top fixed secondary pointing menu">
+            <a id="toggle" class="item">
+                <i class="sidebar icon "></i>
+                Menu
+            </a>
+            <div class="secondary pointing menu">
+                <a href="#" class="ui active item">
+                Home
+                </a>
+                <a href="#" class="ui item">
+                Faculty
+                </a>
+                <a href="#" class="ui item">
+                Reports
+                </a>
+                <a href="" class="ui item">
+                Schedule
+                </a>
+            </div>
+            <div class="right menu">
+                <a href="" class="ui item">
+                <i class="handicap icon">
+                </i>
+                </a>
+                <a href="" class="ui blue item">
+                <i class="sign out icon"></i>
+                Log out
+                </a>
+            </div>
+        </div>
+        <div class="dimmed fixed pusher">
+            <div class="ui container">   
+                <form class="ui form">
+                    <h4 class="ui dividing header">Personal Information</h4>
+                    <div class="field">
+                        <div class="three fields">
+                            <div class="field">
+                                <label>First name</label>
+                                <input type="text" name="" placeholder="First Name">
+                            </div>
+                            <div class="field">
+                                <label>Last Name</label>
+                                <input type="text" name="" placeholder="Last Name">
+                            </div>
+                            <div class="field">
+                                <label>Middle Name</label>
+                                <input type="text" name="" placeholder="Middle Name">
+                            </div>
+                        </div>
+                        <div class="two fields">
+                            <div class="field">
+                                <label>Gender</label>
+                            </div>
+                        </div>
+                        <div class="two fields">
+                            <div class="four wide field">
+                                <label>Date of Birth</label>
+                                <input type="text" name="" placeholder="mm/dd/yy">
+                            </div>
+                            <div class="twelve wide field">
+                                <label>Place of Birth</label>
+                                <input type="text" name="" placeholder="City/Province/Municipality">
+                            </div>
+                        </div>
+                   </div>
+                </form>
+            </div>
+        </div>
+        <script>
+            $('#toggle').click(function(){
+                $('.ui.sidebar').sidebar('toggle');
+            });
+        </script>
+    </body>
+</html> 

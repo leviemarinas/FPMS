@@ -1,0 +1,91 @@
+extends ../../../templates/ITmaster
+
+block content
+    div.ui.s.adjusted.ping
+        div.ui.container
+            div.ui.top.attached.tabular.menu.height2
+                a.active.item(data-tab="First") Personal Information
+                a.item(data-tab="Second") Educational Attainment
+                a.item(data-tab="Third") Faculty Rank
+                a.item(data-tab="Fourth") Functions Attended
+                a.item(data-tab="Fifth") Work Experience
+            div.ui.active.bottom.attached.tab.segment(data-tab="First") 
+                div.ui.ribbon.label.inverted.black.large
+                    h3 Personal Information
+                div.ui.segment.height.b-adjusted
+                    img.ui.right.image(src="/images/wireframe/image.png", alt="" height="200px" width="200px")
+                    div.ui.container.height
+                        table.ui.padded.yellow.table
+                            tbody
+                                tr
+                                    td.three.wide Name
+                                    td Reign Emmanuel O. Malto
+                                    
+                                tr 
+                                    td Place of Birth
+                                    td Marikina, City
+                                tr 
+                                    td Gender
+                                    td Male
+                                tr 
+                                    td Address
+                                    td That's for me to know and you to find Out
+                                tr
+                                    td Civil Status
+                                    td Single pero in a Relationship
+                                    tr
+                                    td Citizenship
+                                    td Malamang Filipino
+                                tr 
+                                    td Mobile No.
+                                    td why do you even care
+                                tr 
+                                    td Email Address
+                                    td secret
+            div.ui.bottom.attached.tab.segment(data-tab="Second")
+                label I copy Mo nalang dito yung variables at Divs Kaya mo na yan ben
+            div.ui.bottom.attached.tab.segment(data-tab="Third")
+                div.ui.ribbon.label.inverted.black.large
+                    h3 Rank List
+                div.ui.segment.height.b-adjusted 
+                    img.ui.image(src="" height="200px" width="200px;")
+                    div.ui.container.height10
+                        div.ui.container
+                            label.ui.ribbon.inverted.yellow.large.label Rank Information
+                            table.ui.padded.orange.table
+                                tbody
+                                        tr
+                                            th.six.wide 
+                                                b Faculty Rank 
+                                            th
+                                                b Date of Effectivity
+                                        tr 
+                                            td INSTRUCTOR I
+                                            td June 30 2017
+                                        tr 
+                                            td INSTRUCTOR II
+                                            td July 15 2017
+                                        tr 
+                                            td INSTRUCTOR III
+                                            td Sept 18 2017
+            div.ui.bottom.attached.tab.segment(data-tab="Fourth")
+            div.ui.bottom.attached.tab.segment(data-tab="Fifth")
+                div.ui.ribbon.label.inverted.black.large
+                    h3 Work Experience
+                div.ui.segment.height.b-adjusted 
+                    img.ui.image(src="" height="200px" width="200px;")
+                    div.ui.container.height10
+                        div.ui.container
+                            label.ui.ribbon.inverted.yellow.large.label Work Experience Information
+                            table.ui.padded.orange.table
+                                tbody
+                                        tr
+                                            th.six.wide 
+                                                b List
+                                        tr 
+                                            td INSTRUCTOR I
+                                            
+            script.
+                $('.menu .item')
+                    .tab()
+                ;

@@ -1,0 +1,36 @@
+extends ../../../../templates/Maintemaster
+
+block content
+    div.ui.centerer
+        div.ui.segment.ping.p-adjust
+            div.ui.container
+            div.ui.ribbon.label.huge.inverted.blue 
+                p Add Admin
+                    i.add.icon
+            div.ui.container.inverted.teal.height3
+                form.ui.form.mleft(method="POST" action="/")
+                    div.ui.three.fields
+                        div.ui.field
+                            label.ui.large.teal.tag Last Name
+                            input(type="text" name="adminlastname" placeholder="Last Name")
+                        div.ui.field
+                            label.ui.large.teal.tag First Name
+                            input(type="text" name="adminfirstname" placeholder="First Name")
+                        div.ui.field
+                            label.ui.large.teal.tag Middle Name
+                            input(type="text" name="adminmiddlename" placeholder="Middle Name")
+                    div.ui.field
+                        label.ui Username
+                        input(type="text" name="adminusername" placeholder="Username")
+                    div.ui.field
+                        label.ui Password
+                        input(type="password" name="adminpassword")
+                    div.ui.field
+                        label.ui Confirm Password
+                        input(type="password" name="adminconfirmpassword")
+                    div#butt.warp2.height2
+                        button#add.ui.labeled.orange.icon.button.rightp()
+                            i.add.icon
+                            p Add 
+            
+                

@@ -1,0 +1,178 @@
+<html>
+    <head>
+        <title></title>
+        <link rel="stylesheet" href="/Semantic-Ui-CSS-Master/semantic.css">
+        <link rel="stylesheet" href="/Semantic-Ui-CSS-Master/semantic.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+        <script src="/Semantic-UI-CSS-Master/semantic.min.js"></script>
+        <script src="/Semantic-UI-CSS-Master/semantic.js"></script>
+      
+    </head>
+    <body>
+        <div class="ui dropdown">
+  <div class="text">File</div>
+  <i class="dropdown icon"></i>
+  <div class="menu">
+    <div class="item">New</div>
+    <div class="item">
+      <span class="description">ctrl + o</span>
+      Open...
+    </div>
+    <div class="item">
+      <span class="description">ctrl + s</span>
+      Save as...
+    </div>
+    <div class="item">
+      <span class="description">ctrl + r</span>
+      Rename
+    </div>
+    <div class="item">Make a copy</div>
+    <div class="item">
+      <i class="folder icon"></i>
+      Move to folder
+    </div>
+    <div class="item">
+      <i class="trash icon"></i>
+      Move to trash
+    </div>
+    <div class="divider"></div>
+    <div class="item">Download As...</div>
+    <div class="item">
+      <i class="dropdown icon"></i>
+      Publish To Web
+      <div class="menu">
+        <div class="item">Google Docs</div>
+        <div class="item">Google Drive</div>
+        <div class="item">Dropbox</div>
+        <div class="item">Adobe Creative Cloud</div>
+        <div class="item">Private FTP</div>
+        <div class="item">Another Service...</div>
+      </div>
+    </div>
+    <div class="item">E-mail Collaborators</div>
+  </div>
+        <form class="ui form">          
+            <div class="fields two">
+                <div class="field">
+                <label>Empty</label>
+                <input name="emptyanything" type="text">
+                </div>
+                <div class="field">
+                <label>Dropdown</label>
+                <select class="ui dropdown" name="dropdown">
+                    <option value="">Select</option>
+                    <option value="male">Choice 1</option>
+                    <option value="female">Choice 2</option>
+                </select>
+                </div>
+                </div>
+                <div class="ui submit button">Submit</div>
+                <div class="ui button add">Add</div>
+                <div class="ui error message"></div>
+            </div>
+        </form>
+        <script>
+            $(document).ready(function(){
+            //$('form').form('validate');
+
+            $('.submit').click(function(){
+            //alert("sdfg");
+            //$('form').form('validate .form');
+            console.log($('form'));
+            var $inputs = $('.form');
+            
+            console.log($inputs[0].elements);
+            console.log($inputs.serializeArray());
+            
+            var form_fields = {};
+            $all_form_fields = $inputs.serializeArray();
+            
+            for(var cnt in $all_form_fields)
+            {
+                var single_field = {};
+                single_field.identifier = $all_form_fields[cnt].name ;
+                single_field.rules =  [
+                    {
+                        type   : 'empty',
+                        prompt : 'Please enter a valid {name}'
+                    }
+                    ] ;
+                    
+                    form_fields[$all_form_fields[cnt].name] = single_field;
+                    
+            }
+            console.log(form_fields);
+            $('form').form(	{	
+                    fields : form_fields,
+                inline : true
+                });
+
+            
+            
+            });
+            var count = 1;
+
+            $(document).on('click', '.ui.button.add', function() {
+                var template = '<div class="fields two"> \
+            <div class="field">\
+                <label>Empty</label>\
+                <input name="emptyanything['+count+']" type="text">\
+            </div>\
+            <div class="field">\
+                <label>Dropdown</label>\
+                <select class="ui dropdown" name="dropdown['+count+']">\
+                <option value="">Select</option>\
+                <option value="male">Choice 1</option>\
+                <option value="female">Choice 2</option>\
+                </select>\
+            </div>\
+            </div>' ;
+                
+                // $('form.ui.form').append(template);
+                $(template).insertBefore('.ui.submit');
+                count++;
+                
+                });
+
+            //------------------------Ignore below Code. This only for Understanding purpose--------------------//
+            var validationRules = {
+                emptyanything: {
+                    identifier  : 'emptyanything',
+                    rules: [
+                    {
+                        type   : 'empty',
+                        prompt : 'Please enter a value'
+                    }
+                    ]
+                },
+                dropdown: {
+                    identifier  : 'dropdown',
+                    rules: [
+                    {
+                        type   : 'empty',
+                        prompt : 'Please select a {name}'
+                    }
+                    ]
+                },
+                
+                };
+            
+
+            $.fn.form.settings.templates.prompt = function(errors) {
+            return $('<div/>')
+                .addClass('ui prompt pointing below red basic label')
+                .html(errors[0])  ;
+            }
+
+            $('form').form(
+                {	
+                    fields : validationRules,
+                inline : true,
+                on     : 'blur'
+                }
+            );
+
+        </script>
+    </body>
+</html>

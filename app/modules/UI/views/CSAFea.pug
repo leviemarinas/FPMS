@@ -1,0 +1,160 @@
+extends ../../../templates/CSmaster
+
+block content
+    div.ui.centerer
+        div.ui.centerer.height3
+            div.ui.segment.ping.p-adjust
+                div.ui.ribbon.label.inverted.huge.teal.adjustleft
+                    label.ui Educational Attainment
+                div.height7
+                div.ui.container.inverted.teal
+                    form.ui.form.mleft(method="POST" action="")
+                        div.ui.two.fields
+                            div.ui.field
+                                label.ui.large.teal.tag Elementary
+                                input(type="text" name="elementary" placeholder="Elementary")
+                            div.ui.field
+                                label.ui.large.teal.tag Date Graduated
+                                input(type="text" name="dategrade" placeholder="Date")            
+                        div.ui.two.fields
+                            div.ui.field
+                                label.ui.large.teal.tag High School
+                                input(type="text" name="highschool" placeholder="High School")
+                            div.ui.field
+                                label.ui.large.teal.tag Date Graduated
+                                input(type="text" name="dategradhs" placeholder="Date")
+                        div.ui.two.fields
+                            div.ui.field
+                                label.ui.large.teal.tag College
+                                input(type="text" name="college" placeholder="College")
+                            div.ui.field
+                                label.ui.large.teal.tag Date Graduated
+                                input(type="text" name="dategradco" placeholder="Date")
+                        div#gs.height2
+                            div.ui.three.fields
+                                div.ui.field
+                                    label.ui.larg.tag Graduate Studies
+                                    input(type="text" name="gstudies" placeholder="Graduate Studies")
+                                div.ui.field
+                                    label.ui.large.teal.tag Units
+                                    input(type="text" name="units" placeholder="Units")
+                                div.ui.field
+                                    label.ui.large.teal.tag Date
+                                    input(type="text" name="dategs" placeholder="Date")
+                        div#butt.warp2.height
+                            button#add.ui.labeled.orange.icon.button.rightp(type="button")
+                                i.add.icon
+                                p Add Graduate Studies
+                            button.ui.labeled.orange.icon.button.rightp()
+                                i.add.icon
+                                p Submit
+                        script.
+                            $(document).ready(function(){
+                            //$('form').form('validate');
+
+                            $('#add').click(function(){
+                            //alert("sdfg");
+                            //$('form').form('validate .form');
+                            console.log($('form'));
+                            var $inputs = $('.form');
+                            
+                            console.log($inputs[0].elements);
+                            console.log($inputs.serializeArray());
+                            
+                            var form_fields = {};
+                            $all_form_fields = $inputs.serializeArray();
+                            
+                           /* for(var cnt in $all_form_fields)
+                            {
+                                var single_field = {};
+                                single_field.identifier = $all_form_fields[cnt].name ;
+                                single_field.rules =  [
+                                    {
+                                        type   : 'empty',
+                                        prompt : 'Please enter a valid {name}'
+                                    }
+                                    ] ;
+                                    
+                                    form_fields[$all_form_fields[cnt].name] = single_field;
+                                    
+                            }*/
+                            console.log(form_fields);
+                            $('form').form(	{	
+                                    fields : form_fields,
+                                inline : true
+                                });
+
+                            
+                            
+                            });
+                            var count = 1;
+
+                            $(document).on('click', '#add', function() {
+
+                                var template = 
+                                `<div class="ui three fields">\
+                                    <div class ="field">\
+                                        <label> Graduate Studies</label>\
+                                        <input type="text" name="gstudies${count}" placeholder="Graduate Studies">\
+                                        </label>\
+                                    </div>\
+                                    <div class="ui field">\
+                                        <label> Units </label>\
+                                        <input type="text" name="units${count}" placeholder="Units">\
+                                    </div>\
+                                    <div class="ui field">\
+                                        <label> Date </label>\
+                                        <input type="text" name="dategs${count}" placeholder="Date">\
+                                    </div>\
+                                </div>\
+                                </div>` ;
+                                console.log(`${template}`);
+                                // $('form.ui.form').append(template);
+                                $(template).insertBefore('#butt');
+                                count++;
+                                console.log(`${count}`);
+                                
+                            });
+
+
+                            });
+                            $('.ui.form')
+                                .form({
+                                    inline: 'true',
+                                    fields: 
+                                    {
+                                    elementary: {
+                                        identifier: 'elementary',
+                                        rules: [
+                                            {
+                                                type   : 'empty',
+                                                prompt : 'Please Enter your Elementary School'
+                                            },
+                                            {
+                                                type   :'contains[<>]',
+                                                prompt :'script and html tags are not allowed'
+                                            },
+                                            {
+                                                type   : 'SELECT',
+                                                prompt : 'SQL Commands are not allowed'
+                                            }
+                                        ]
+
+                                    },
+                                    password: {
+                                        identifier: 'password',
+                                        rules: [
+                                        {
+                                            type   : 'empty',
+                                            prompt : 'Please enter a password'
+                                        },
+                                        {
+                                            type   : 'minLength[3]',
+                                            prompt : 'Your password must be at least {ruleValue} characters'
+                                        }
+                                        ]
+                                    }
+                                    
+                                    }
+                                })
+                                ;

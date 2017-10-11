@@ -1,0 +1,145 @@
+extends ../../../templates/CSmaster
+
+block content
+    div.ui.centerer
+        div.ui.centerer.height3
+            div.ui.segment.ping.p-adjust
+                div.ui.ribbon.label.inverted.huge.teal.adjustleft
+                    label.ui Add Functions
+                        i.configure.icon
+                div.height7
+                div.ui.container.inverted.teal
+                        form.ui.form()
+                            div.ui.two.fields
+                                div.ui.field
+                                    label.ui Select Faculty
+                                    select#multi-selects.search.multiple.selection.dropdown
+                                        option(type="hidden")
+                                        option
+                            div.ui.three.fields
+                                div.ui.field
+                                    label Function Name
+                                    input(type="text" name="functionname" placeholder="Function Name")
+                                div.ui.field
+                                    label Date
+                                    input(type="date" name="functiondate" placeholder="Date")
+                                div.ui.field
+                                    label Function Level
+                                    input(type="text" name="functionlevel" placeholder="Function Level")
+                            div#butt.warp2.height
+                                button#add.ui.labeled.orange.icon.button.rightp(type="button")
+                                    i.add.icon
+                                    p Add More Functions 
+                                button.ui.labeled.orange.icon.button.rightp()
+                                    i.add.icon
+                                    p Submit
+                        script.
+                            $(document).ready(function(){
+                            //$('form').form('validate');
+
+                            $('#add').click(function(){
+                            //alert("sdfg");
+                            //$('form').form('validate .form');
+                            console.log($('form'));
+                            var $inputs = $('.form');
+                            
+                            console.log($inputs[0].elements);
+                            console.log($inputs.serializeArray());
+                            
+                            var form_fields = {};
+                            $all_form_fields = $inputs.serializeArray();
+                            
+                           /* for(var cnt in $all_form_fields)
+                            {
+                                var single_field = {};
+                                single_field.identifier = $all_form_fields[cnt].name ;
+                                single_field.rules =  [
+                                    {
+                                        type   : 'empty',
+                                        prompt : 'Please enter a valid {name}'
+                                    }
+                                    ] ;
+                                    
+                                    form_fields[$all_form_fields[cnt].name] = single_field;
+                                    
+                            }*/
+                            console.log(form_fields);
+                            $('form').form(	{	
+                                    fields : form_fields,
+                                inline : true
+                                });
+
+                            
+                            
+                            });
+                            var count = 1;
+
+                            $(document).on('click', '#add', function() {
+
+                                var template = 
+                                `<div class="ui three fields">\
+                                    <div class ="field">\
+                                        <label> Function Name</label>\
+                                        <input type="text" name="functionname${count}" placeholder="Function Name">\
+                                        </label>\
+                                    </div>\
+                                    <div class="ui field">\
+                                        <label> Date </label>\
+                                        <input type="date" name="functiondate${count}" placeholder="Function Date">\
+                                    </div>\
+                                    <div class="ui field">\
+                                        <label> Function Level </label>\
+                                        <input type="text" name="functionlevel${count}" placeholder="Function Level">\
+                                    </div>\
+                                </div>\
+                                </div>` ;
+                                console.log(`${template}`);
+                                // $('form.ui.form').append(template);
+                                $(template).insertBefore('#butt');
+                                count++;
+                                console.log(`${count}`);
+                                
+                            });
+
+
+                            });
+                            $('.ui.form')
+                                .form({
+                                    inline: 'true',
+                                    fields: 
+                                    {
+                                    elementary: {
+                                        identifier: 'elementary',
+                                        rules: [
+                                            {
+                                                type   : 'empty',
+                                                prompt : 'Please Enter your Elementary School'
+                                            },
+                                            {
+                                                type   :'contains[<>]',
+                                                prompt :'script and html tags are not allowed'
+                                            },
+                                            {
+                                                type   : 'SELECT',
+                                                prompt : 'SQL Commands are not allowed'
+                                            }
+                                        ]
+
+                                    },
+                                    password: {
+                                        identifier: 'password',
+                                        rules: [
+                                        {
+                                            type   : 'empty',
+                                            prompt : 'Please enter a password'
+                                        },
+                                        {
+                                            type   : 'minLength[3]',
+                                            prompt : 'Your password must be at least {ruleValue} characters'
+                                        }
+                                        ]
+                                    }
+                                    
+                                    }
+                                })
+                                ;

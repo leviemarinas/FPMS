@@ -1,0 +1,48 @@
+extends ../../../templates/Reports/Qreportmaster
+
+block content
+    div.ui.centerer
+        div.ui.segment.ping.p-adjust
+            div
+            div.ui.ribbon.label.inverted.huge.orange.adjustleft
+                label.ui Report Submit
+            div.ui.huge.adjustleft.orange.label
+                label.ui Faculty
+            div.ui.two.fields.height7.pright()
+                form.ui.form()
+                    div.ui.three.fields
+                        div.ui.field
+                            label.ui Select Faculty
+                            select#multi-select.search.multiple.selection.dropdown
+                                option(type="hidden")
+                                option
+                        div.ui.field
+                            label.ui Reports
+                            select#multi-selects.search.multiple.selection.dropdown
+                                option(type="hidden")
+                                option
+            div.ui.two.fields.height3.pright
+                form.ui.form()
+                    div.ui.three.fields
+                        div.ui.field
+                            label Attachments
+                            select#select.ui.search.selection.dropdown
+                                option
+                        div.ui.field
+                            label Date
+                            input(type="Date" name="deadline" placeholder="Deadline")
+                        div.ui.field.height2.pright
+                            button#add.ui.labeled.orange.icon.button.width5.height3()
+                                i.add.icon
+                                p Next 
+            script.
+                $('#select','').dropdown();
+                $('#multi-select')
+                    .dropdown()
+                ;
+                $('#multi-selects')
+                    .dropdown()
+                ;
+                $('.menu .item')
+                    .tab()
+                ;

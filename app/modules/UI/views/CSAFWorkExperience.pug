@@ -1,0 +1,95 @@
+extends ../../../templates/CSmaster
+
+block content
+    div.ui.centerer.height3
+        div.ui.segment.ping.p-adjust
+            div
+            div.ui.ribbon.label.inverted.huge.teal.adjustleft
+                label.ui Work Experience
+            div.ui.inverted.teal.height7
+                form#form.ui.form.mleft(method="POST" action="")
+                    div.ui.field
+                        div.ui.field
+                            label.ui Select Faculty
+                            select#multi-selects.search.multiple.selection.dropdown
+                                option(type="hidden")
+                                option
+                        div.ui.field
+                            label.ui Work Experience
+                            input(type="text" name="workex" placeholder="Work Experience")
+                        div#here.ui.height2.two.fields.let
+                            div.ui.field
+                                button#add.ui.labeled.orange.icon.button.rightp.height1(type="button")
+                                    i.add.icon
+                                    p Add Work Experience
+                                button.ui.labeled.orange.icon.button.rightp.height1(type="submit")
+                                    i.add.icon
+                                    p Submit
+                                button#clear.ui.labeled.orange.icon.button.rightp.height1(type="button")
+                                    i.add.icon
+                                    p Clear
+                                script.
+                                    $(document).ready(function(){
+                                    //$('form').form('validate');
+                                    $('form').form('validate #form');
+                                    $('#add').click(function(){
+                                    //alert("sdfg");
+                                    //$('form').form('validate .form');
+                                    console.log($('form'));
+                                    var $inputs = $('.form');
+                                    
+                                    console.log($inputs[0].elements);
+                                    console.log($inputs.serializeArray());
+                                    
+                                    var form_fields = {};
+                                    $all_form_fields = $inputs.serializeArray();
+                                    
+                                    for(var cnt in $all_form_fields)
+                                    {
+                                        /* var single_field = {};
+                                        single_field.identifier = $all_form_fields[cnt].name ;
+                                        single_field.rules =  [
+                                            {
+                                                type   : 'empty',
+                                                prompt : 'Please enter a valid {name}'
+                                            }
+                                            ] ;
+                                            
+                                            form_fields[$all_form_fields[cnt].name] = single_field; */
+                                            
+                                    }
+                                    console.log(form_fields);
+                                    $('form').form(	{	
+                                            fields : form_fields,
+                                        inline : true
+                                        });
+
+                                    
+                                    
+                                    });
+                                    var count = 1;
+
+                                    $(document).on('click', '#add', function() {
+
+                                        var template = 
+                                        `
+                                            <div class ="ui field">\
+                                                <label> Work Experience</label>\
+                                                <input type="text" name="workex${count}" placeholder="Work Experience">\
+                                                </label>\
+                                            <div>` ;
+                                        console.log(`${template}`);
+                                        // $('form.ui.form').append(template);
+                                        $(template).insertBefore('#here');
+                                        count++;
+                                        console.log(`${count}`);
+                                        
+                                    });
+
+
+                                    });
+                                    $('#multi-selects')
+                                        .dropdown()
+                                    ;
+                                    $('#form').form('clear')
+                                    ;

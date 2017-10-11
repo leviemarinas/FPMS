@@ -1,0 +1,43 @@
+extends ../../../templates/Reports/Mreportmaster
+
+block content
+    div.ui.centerer
+            div.ui.segment.positioning.p-adjust
+                div
+                div.ui.ribbon.label.inverted.huge.blue.adjustleft
+                    label.ui Semestral Reports
+                div.ui.huge.adjustleft.blue.label
+                    label.ui Faculty
+                div.adjustright
+                    div.ui.right.ribbon.label.blue.adjustright          
+                        div.ui.fluid.category.search
+                            div.ui.icon.input
+                                input.prompt(type="text" placeholder="Search")
+                                i.search.icon
+                            div.results
+                div.height
+                    table.ui.compact.celled.small.blue.table 
+                        th
+                            tr
+                                th.four.wide.tp.t-align Name 
+                                th.t-align.five.wide Due Date
+                                th.t-align.five.wide Date Submitted
+                                th.t-align.four.wide Attachments
+                        th
+                            tr
+                                th.tp.t-align 
+                                th.t-align
+                                    form.ui.form
+                                        input(type="text" placeholder="June 20 2017")
+                                th.t-align
+                                    form.ui.form 
+                                        input(type="text" placeholder="June 20 2017")
+                                th.t-align
+                    div.ui.container
+                        div.rightp
+                            div.rightp
+                                div.rightp.wrapper
+                                    button.ui.labeled.blue.icon.button.rightp
+                                        i.add.icon
+                                        p Report             
+                                

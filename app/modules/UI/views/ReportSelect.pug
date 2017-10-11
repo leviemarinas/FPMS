@@ -1,0 +1,51 @@
+extends ../../../templates/Reports/Sreportmaster
+
+block content
+    div.ui.centerer
+        div.ui.segment.ping.p-adjust
+            div
+            div.ui.ribbon.label.inverted.huge.green.adjustleft
+                label.ui Semestral Reports
+            div.ui.huge.adjustleft.green.label
+                label.ui Faculty
+            div.adjustright
+                div.ui.right.ribbon.label.green.adjustright          
+                    div.ui.fluid.category.search
+                        div.ui.icon.input
+                            input.prompt(type="text" placeholder="Search")
+                            i.search.icon
+                        div.result
+            div.ui.two.fields.height7.pright()
+                form.ui.form()
+                    div.ui.two.fields
+                        div.ui.field
+                            label.ui Select Faculty
+                            select#multi-select.search.multiple.selection.dropdown
+                                option(type="hidden")
+                                option
+                                
+            div.ui.two.fields.height3.pright
+                form.ui.form()
+                    div.ui.two.fields
+                        div.ui.field
+                            label.ui Select Faculty
+                            select#multi-select.search.multiple.selection.dropdown
+                                option(type="hidden")
+                                option
+                    div.ui.three.fields
+                        div.ui.field
+                            label Report Type
+                            select#select.ui.search.selection.dropdown
+                                option
+                        div.ui.field
+                            label Deadline
+                            input(type="Date" name="deadline" placeholder="Deadline")
+        
+    script.
+        $('#select','').dropdown();
+        $('#multi-select')
+            .dropdown()
+        ;
+        $('.menu .item')
+            .tab()
+        ;

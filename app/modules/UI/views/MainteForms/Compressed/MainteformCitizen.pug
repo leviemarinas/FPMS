@@ -1,0 +1,20 @@
+extends ../../../../templates/Maintemaster
+
+block content
+    div.ui.centerer
+        div.ui.segment.ping.p-adjust
+            div.ui.container
+            div.ui.ribbon.label.huge.inverted.blue 
+                p Add Citizenship
+                    i.add.icon
+            .ui.container.inverted.teal.height3
+                form.ui.form.mleft(method="POST" action="/")
+                    div.ui.field
+                        label.ui.large.teal.tag Citizenship Name
+                        input(type="text" name="citizenshipname" placeholder="Citizenship Name")
+                    div#butt.warp2.height2
+                        button#add.ui.labeled.orange.icon.button.rightp()
+                            i.add.icon
+                            p Add 
+            
+                

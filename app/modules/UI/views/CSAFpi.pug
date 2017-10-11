@@ -1,0 +1,65 @@
+extends ../../../templates/CSmaster
+
+block content
+    div.ui.centerer.height3
+        div.ui.segment.ping.p-adjust
+            div
+            div.ui.ribbon.label.inverted.huge.teal.adjustleft
+                label.ui Personal Information
+            div.height7
+            div.ui.container.inverted.teal
+                form.ui.form.mleft(method="POST" action="/")
+                    div.ui.three.fields
+                        div.ui.field
+                            label.ui.large.teal.tag Lastname
+                            input(type="text" name="lastname" placeholder="Last Name")
+                        div.ui.field
+                            label.ui.large.teal.tag Firstname
+                            input(type="text" name="firstname" placeholder="First Name")
+                        div.ui.field
+                            label.ui.large.teal.tag Middlename
+                            input(type="text" name="middlename" placeholder="Middle Name")
+                    div.field
+                        div.ui.field    
+                            label.ui.large.teal.tag Address
+                            input(type="text" name="address" placeholder="Address")
+                    div.ui.three.fields
+                        div.ui.field
+                            label.ui.large.teal.tag Birthday
+                            input(type="text" name="birthday" placeholder="mm/dd/yy")
+                        div.ui.field
+                            label.ui.large.teal.tag Gender
+                            input(type="text" name="gender" placeholder="Male or Female")
+                        div.ui.field
+                            label.ui.large.teal.tag Department
+                            select#reports.ui.selection.search.dropdown 
+                                option 
+                    div.ui.three.fields
+                        div.ui.field
+                            label.ui.large.teal.tag Civil Status
+                            input(type="text" name="civilstatus" placeholder="Civil Status")
+                        div.ui.field
+                            label.ui.large.teal.tag Citizenship
+                            input(type="text" name="citizenship" placeholder="Citizenship")
+                        div.ui.field
+                            label.ui.large.teal.tag Employee Type
+                            input(type="text" name="emptype" placeholder="Type")
+                    div.ui.three.fields
+                        div.ui.field
+                            label.ui.large.teal.tag Mobile
+                            input(type="text" name="mobile" placeholder="+63")
+                        div.ui.field
+                            label.ui.large.teal.tag Email Address
+                            input(type="text" name="emailadd" placeholder="asdecers@example.com")
+                        div.ui.field
+                            label.ui.large.teal.tag Date Hired
+                            input(type="text" name="doh" placeholder="Date")
+                    div.ui.field
+                        label Work Experience
+                        input(type="text" name="we" placeholder="Work Experience")
+                    div#butt.warp.height
+                        button#add.ui.labeled.orange.icon.button.rightp()
+                            i.add.icon
+                            p Next 
+        
+    
