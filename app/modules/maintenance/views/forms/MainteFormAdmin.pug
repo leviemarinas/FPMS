@@ -1,12 +1,12 @@
 extends ../../../../templates/Maintemaster
 
 block content
-    - var text = typeof incorrect !== 'undefined' ? 'Password Confirmation Do Not Match' : ''
+    - var hasText = typeof password !== 'undefined' ? 'Password Confirmation Do Not Match' : ''
     div.ui.centerer
-        if text 
-            div.ping.ui.warning.message 
+        if hasText 
+            .ping.ui.warning.message 
                 i.close.icon
-                div.header #{text}
+                div.header #{hasText}
                     p Please Try Again
         div.ui.segment.ping.p-adjust
             div.ui.container

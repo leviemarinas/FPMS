@@ -1,14 +1,14 @@
-extends ./base 
+extends ../base 
 
 block body
     div.ui.secondary.top.fixed.pointing.menu
-        div.right.menu   
+        div.right.menu    
             a.ui.item(href="/index") Home
             div.ui.simple.dropdown.item Faculty
                 i.dropdown.icon
                 div.menu
                     div.header Department
-                    a.item(href="/faculty") Faculty List
+                    a.ui.item(href="/faculty") Faculty List
             div.ui.simple.dropdown.active.item Reports
                 i.dropdown.icon.violet
                 div.menu
@@ -29,7 +29,7 @@ block body
                     div.header Department
                     a.ui.item(href="/schedule/IT") IT
                     a.ui.item(href="/schedule/CS") CS
-            a.ui.item.active(href="/maintenance") Maintenance
+            a.ui.item(href="/maintenance") Maintenance
         div.ui.right.menu
             a.menu.item(href="/logout")     
                 i.sign.out.icon 

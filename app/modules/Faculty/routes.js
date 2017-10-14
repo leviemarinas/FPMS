@@ -6,16 +6,12 @@ var counter = require('../auth/middlewares/SC');
 
 
 
-router.get('/IT',authMiddleware.hasAuth,(req,res)=>{
-    db.query(`select * from tblfp where strFacultyDeptID='DEPT-0002'`,(err,results,field)=>{
+router.get('/',authMiddleware.hasAuth,(req,res)=>{
+    db.query(`select * from tblfp where is_Deleted = "0"`,(err,results,field)=>{
         return res.render('Faculty/views/DIT',{Fprofiles : results});
     });
 });
-router.get('/CS',authMiddleware.hasAuth,(req,res)=>{
-    db.query(`select * from tblfp where strFacultyDeptID='DEPT-0001'`,(err,results,field)=>{
-        return res.render('Faculty/views/DCS',{Fprofiles : results});
-    });
-});
+
 function PS(req,res,next){
     db.query(`select * from tblcivilstatus`,(err,res,field)=>{
         req.CS = res;
@@ -51,12 +47,77 @@ router.get('/add/P',PS,PD,PF,PG,renderPage);
 
 router.post('/add/P',(req,res)=>{
     var newID = counter.smart(req.body.FID);
-    db.query(`INSERT INTO tblfacultyprofile VALUES("${newID}","${req.body.firstname}","${req.body.middlename}","${req.body.lastname}","${req.body.birthday}","${req.body.address}","${req.body.dept}","${req.body.citizenship}","${req.body.civilstatus}","${req.body.doh}","${req.body.mobile}","${req.body.emailadd}","${req.body.gender}","","${req.body.employee}")`
+    db.query(`INSERT INTO tblfacultyprofile VALUES("${newID}","${req.body.firstname}","${req.body.middlename}","${req.body.lastname}","${req.body.birthday}","${req.body.address}","${req.body.dept}","${req.body.citizenship}","${req.body.civilstatus}","${req.body.doh}","${req.body.mobile}","${req.body.emailadd}","${req.body.gender}","","${req.body.employee}",0)`
     ,(err,results,field)=>{
         if(err) throw err;
-        res.redirect(`/faculty/add/EA`);
+        return res.redirect(`/faculty/add/EA/${newID}`);
     })
 });
+
+router.get('/:strFacultyID/edit',PS,PD,PF,PG,(req,res)=>{
+    db.query(`SELECT * from tblfacultyprofile where strFacultyID = "${req.params.strFacultyID}"`,(err,results,field)=>{
+        if(err) throw err;
+        console.log(results);
+        if(results[0]==null) return res.redirect('/faculty');
+        return res.render('faculty/views/AFpi',{CS : req.CS, CT : req.CT, depts : req.depts, emp : req.emp, faculty : results[0]});
+    });
+});
+router.put('/:strFacultyID/edit',(req,res)=>{
+    db.query(`UPDATE tblfacultyProfile SET 
+    strFacultyFirstname = "${req.body.firstname}",strFacultyMiddlename = "${req.body.middlename}",
+    strFacultySurname = "${req.body.lastname}",datFacultyBday = "${req.body.birthday}",
+    strFacultyAddress = "${req.body.address}",strFacultyDeptID = "${req.body.dept}",
+    strFacultyCitizenshipID = "${req.body.citizenship}",strFacultyCivilStatusID = "${req.body.civilstatus}",
+    datFacultyDateHired = "${req.body.doh}",strFacultyConNum = "${req.body.mobile}",
+    strFacultyEmail = "${req.body.emailadd}",enumFacultyGender = "${req.body.gender}",
+    strFacultyEmpTypeID = "${req.body.employee}"
+    WHERE strFacultyID = "${req.params.strFacultyID}"`,(err,results,field)=>{
+        if(err) throw err;
+        return res.redirect('/faculty');
+    })
+});
+router.get('/:strFacultyID/remove',(req,res)=>{
+    db.query(`UPDATE tblfacultyProfile SET
+    is_Deleted = "1"
+    WHERE strFacultyID = "${req.params.strFacultyID}"`,(err,results,field)=>{
+        if(err) throw err;
+        return res.redirect('/faculty');
+    });
+});
+function level(req,res,next){
+    db.query(`SELECT * from tbleduclevel where strEducLevelID != "EL-0001"and strEducLevelID != "EL-0002" and strEducLevelID != "EL-0003"`,(err,results,field)=>{
+       req.level = results;
+       next();
+    });
+}
+
+
+router.get('/add/EA/:strFacultyID',level,(req,res)=>{
+    db.query(`SELECT MAX(strEducAttainID) as strEducAttainID FROM tbleducattain`,(err,results,field)=>{
+        res.locals.ID = results[0].strEducAttainID;
+        res.locals.FID = req.params.strFacultyID;
+        return res.render('faculty/views/AFea',{levels : req.level});
+    });
+});
+router.post('/add/EA/:strFacultyID',(req,res)=>{
+    var newID = counter.smart(req.body.eaid);
+    for(var x =0;x<req.body.educ.length;x++){
+        if(req.body.educ[x]==''){
+            console.log("here" );
+            return res.redirect('/faculty');
+        } 
+        db.query(`INSERT INTO tbleducattain VALUES("${newID}","${req.body.educname[x]}","${req.body.educ[x]}","${req.body.educdate[x]}","${req.body.educlevel[x]}","${req.params.strFacultyID}",${req.body.units[x]})`,(err,results,field)=>{
+        if(err) throw err;    
+    });
+    newID = counter.smart(newID);
+
+    }
+    return res.redirect('/faculty'); 
+});
+
+
+
+
 
 
 function educ(req,res,next){
@@ -80,10 +141,63 @@ function prof(req,res,next){
         return next();
     });
 }
-function renderProfile(req,res){
-    res.render('Faculty/views/ITPI', {educs : req.educ, funcs : req.func, profs : req.prof})
+function work(req,res,next){
+    db.query(`SELECT * FROM tblworkexp where strWorkExpFPID = "${req.params.strFacultyID}"`,(err,results,field)=>{
+        req.work = results;
+        return next();
+    });
 }
-router.get('/IT/:strFacultyID',authMiddleware.hasAuth,educ,func,prof,renderProfile)
-router.get('/CS/:strFacultyID',authMiddleware.hasAuth,educ,func,prof,renderProfile)
+function ranks(req,res,next){
+    db.query(`SELECT * FROM tblrank where strFacultyRankFID = "${req.params.strFacultyID}"`,(err,results,field)=>{
+        req.rank = results;
+        return next();
+    });
+}
+function renderProfile(req,res){
+    res.render('Faculty/views/ITPI', {educs : req.educ, funcs : req.func, profs : req.prof, works : req.work, ranks : req.rank})
+}
+router.get('/:strFacultyID',authMiddleware.hasAuth,educ,func,prof,work,ranks,renderProfile)
+router.get('/:strFacultyID',authMiddleware.hasAuth,educ,func,prof,work,ranks,renderProfile)
+
+
+
+
+router.get('/:strFacultyID/WorkExp',prof,(req,res)=>{
+    db.query(`SELECT MAX(strWorkExpID) AS strWorkExpID FROM tblworkexp`,(err,results,field)=>{
+        console.log(results[0].strWorkExpID);
+        res.locals.workID = results[0].strWorkExpID;
+        return res.render('Faculty/views/AFWorkExperience',{profs : req.prof});
+    });
+});
+router.post('/:strFacultyID/WorkExp',(req,res)=>{
+    var newID;
+    newID = counter.smart(req.body.weid)
+    db.query(`INSERT INTO tblworkexp VALUES ("${newID}","${req.body.workex}","${req.params.strFacultyID}","${req.body.year}")`,(err,results,field)=>{
+        if(err) throw err;
+        res.redirect(`/faculty`);
+    });
+});
+
+function rankref(req,res,next){
+    db.query(`SELECT * FROM tblfacultyrankref`,(err,results,field)=>{
+        req.rank = results;
+        next();
+    });
+}
+
+
+router.get('/:strFacultyID/rank',rankref,prof,(req,res)=>{
+    db.query(`SELECT MAX(strFacultyRankID) as strFacultyRankID FROM tblfacultyrank`,(err,results,field)=>{
+        res.locals.ID = results[0].strFacultyRankID;
+        return res.render('Faculty/views/AFrn',{ranks : req.rank, profs : req.prof});
+    });
+});
+router.post('/:strFacultyID/rank',(req,res)=>{
+    var newID = counter.smart(req.body.frid);
+    db.query(`INSERT INTO tblfacultyrank VALUES ("${newID}","${req.body.dateofeffect}","${req.params.strFacultyID}","${req.body.rank}")`,(err,results,field)=>{
+        if(err) throw err;
+        res.redirect('/faculty');
+    });
+});
 
 exports.faculty = router;

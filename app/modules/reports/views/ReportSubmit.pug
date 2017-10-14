@@ -1,0 +1,48 @@
+extends ../../../templates/Reports/Reportmaster
+
+block content
+    div.ui.centerer
+        div.ui.segment.ping.p-adjust
+            div
+            div.ui.ribbon.label.inverted.huge.orange.adjustleft
+                label.ui Report Submit
+            div.ui.huge.adjustleft.orange.label
+                label.ui Faculty
+            div.ui.two.fields.height7.pright
+                form.ui.form(method="POST" action=`/reports/Rep/Submit/${profs.strFacultyID}?_method=PUT`)
+                    div.ui.three.fields
+                        div.ui.field.simple.dropdown.item Faculty
+                            i.dropdown.icon
+                            div.ui.menu
+                                div.header Faculty
+                                each prof in profs
+                                    a.ui.item(href=`/reports/Rep/Submit/${prof.strFacultyID}`) #{prof.strFacultySurname+' '+prof.strFacultyFirstname}
+                    if PASS != 1      
+                            div.ui.field
+                                label.ui Reports
+                                select#select.search.selection.dropdown(name="report")
+                                    each submit in submits
+                                        option(value=submit.strRepSubmitID) #{submit.strReportTypeName}
+                    if PASS != 1                
+                        div.ui.three.fields
+                            div.ui.field
+                                label Attachments
+                                input(type="text" name="attachments" placeholder="attachments")
+                            div.ui.field
+                                label Date
+                                input(type="Date" name="datesubmitted")
+                            div.ui.field.height2.pright
+                                button#add.ui.labeled.orange.icon.button.width5.height3(type="Submit")
+                                    i.add.icon
+                                    p Submit
+            script.
+                $('#select','').dropdown();
+                $('#multi-select')
+                    .dropdown()
+                ;
+                $('#multi-selects')
+                    .dropdown()
+                ;
+                $('.menu .item')
+                    .tab()
+                ;

@@ -6,17 +6,19 @@ block content
             div
             div.ui.ribbon.label.inverted.huge.teal.adjustleft
                 label.ui Ranking
-            div.height
-            div.ui.container.inverted.teal
-                form.ui.form.mleft(method="POST" action="/faculty/add/RN")
+            div.ui.container.inverted.teal.height7
+                form.ui.form(method="POST" action=`/faculty/${profs[0].strFacultyID}/rank`)
                     div.ui.three.fields
                         div.ui.field
-                            label.ui Rank
-                            input(type="text" name="rank" placeholder="Graduate Studies")
+                            label Rank
+                            select.ui.selection.search.dropdown(name="rank")
+                                each rank in ranks
+                                    option(value=rank.strFacultyRankRefID) #{rank.strFacultyRankName}
                         div.ui.field
                             label.ui.large.teal.tag Date of Effectivity
-                            input(type="text" name="dateofeffect" placeholder="Units")
+                            input(type="date" name="dateofeffect")
+                        input(type="hidden" name="frid" value=ID)
                         div.height2.let
-                            button#add.ui.labeled.orange.icon.button.rightp.height1(type="submit")
+                            button#add.ui.labeled.orange.icon.button.rightp.height1()
                                 i.add.icon
-                                p Submit 
+                                p Submit

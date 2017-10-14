@@ -14,13 +14,13 @@ router.get('/Admin',(req,res)=>{
     });
 });
 router.get('/Admin/new',(req,res)=>{
-    db.query(`select * from tblfacultyprofile`,(err,results,field)=>{
+    db.query(`select * from tblfacultyprofile left join tbladmin on strFacultyID = stradminFID where stradminFID is null`,(err,results,field)=>{
         return res.render('maintenance/views/forms/MainteformAdmin',{faculties : results});
     });
 });
 router.post('/Admin/new',(req,res)=>{
     if(req.body.adminpassword != req.body.adminconfirmpassword){
-        return res.redirect('/maintenance/Admin/new?incorrect');
+        return res.redirect('/maintenance/Admin/new?password');
     }
     db.query(`INSERT INTO tbladmin (strUsername,strPassword,stradminFID) 
     VALUES ("${req.body.adminusername}","${req.body.adminconfirmpassword}","${req.body.faculty}")`,(err,results,field)=>{

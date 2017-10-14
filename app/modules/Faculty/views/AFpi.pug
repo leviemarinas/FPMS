@@ -1,4 +1,4 @@
-extends ../../../templates/CSmaster
+extends ../../../templates/ITmaster
 
 block content
     div.ui.centerer
@@ -8,31 +8,31 @@ block content
                 label.ui Personal Information
             div.height7
             div.ui.container.inverted.teal
-                form.ui.form.mleft(method="POST" action="/faculty/add/P")
+                form.ui.form.mleft(method="POST" action=`/faculty${faculty ? `/${faculty.strFacultyID}/edit?_method=PUT` : '/add/P'}`)
                     div.ui.three.fields
                         div.ui.field
                             label.ui.large.teal.tag Lastname
-                            input(type="text" name="lastname" placeholder="Last Name")
+                            input(type="text" name="lastname" placeholder="Last Name" value=faculty ? faculty.strFacultySurname : '')
                         div.ui.field
                             label.ui.large.teal.tag Firstname
-                            input(type="text" name="firstname" placeholder="First Name")
+                            input(type="text" name="firstname" placeholder="First Name" value=faculty ? faculty.strFacultyFirstname : '')
                         div.ui.field
                             label.ui.large.teal.tag Middlename
-                            input(type="text" name="middlename" placeholder="Middle Name")
+                            input(type="text" name="middlename" placeholder="Middle Name" value=faculty ? faculty.strFacultyMiddlename : '')
                         input(type="hidden" name="FID" value= ID)
                     div.field
                         div.ui.field    
                             label.ui.large.teal.tag Address
-                            input(type="text" name="address" placeholder="Address")
+                            input(type="text" name="address" placeholder="Address" value=faculty ? faculty.strFacultyAddress : '')
                     div.ui.three.fields
                         div.ui.field
                             label.ui.large.teal.tag Birthday
-                            input(type="date" name="birthday" placeholder="mm/dd/yy")
+                            input(type="date" name="birthday" placeholder="mm/dd/yy" value=faculty ? faculty.datFacultyBday : '')
                         div.ui.field
                             label.ui.large.teal.tag Gender
                             select.ui.selection.search.dropdown(name="gender") 
                                 option(value=Male) Male
-                                option(value=Male) Female
+                                option(value=Female) Female
                         div.ui.field
                             label.ui.large.teal.tag Department
                             select.ui.selection.search.dropdown(name="dept") 
@@ -57,15 +57,15 @@ block content
                     div.ui.three.fields
                         div.ui.field
                             label.ui.large.teal.tag Mobile
-                            input(type="text" name="mobile" placeholder="+63")
+                            input(type="text" name="mobile" placeholder="+63" value=faculty ? faculty.strFacultyConNum : '')
                         div.ui.field
                             label.ui.large.teal.tag Email Address
-                            input(type="text" name="emailadd" placeholder="google@example.com")
+                            input(type="text" name="emailadd" placeholder="google@example.com" value=faculty ? faculty.strFacultyEmail : '')
                         div.ui.field
                             label.ui.large.teal.tag Date Hired
-                            input(type="date" name="doh" placeholder="Date")
+                            input(type="date" name="doh" placeholder="Date" value=faculty ? faculty.datFacultyDateHired : '')
                     div.warp.height
                         button.ui.labeled.orange.icon.button.rightp.field(type="submit" value="submit")
                             i.add.icon
-                            p next        
+                            p #{faculty ? 'Update' : 'next'}       
     

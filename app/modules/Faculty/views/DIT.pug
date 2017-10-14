@@ -5,7 +5,7 @@ block content
         div.ui.segment.ping.positioning.p-adjust
             div.ui.container
             div.ui.ribbon.label.inverted.yellow
-                label.ui.textcolor Department of Information Technology Faculty 
+                label.ui.textcolor College of Computer and Information Sciences
             a.button.huge.green.right.floated.ui.basic.button(href=`/faculty/add/P`)
                 i.add.user.icon
                 label Add Faculty
@@ -21,14 +21,14 @@ block content
                 th
                     each Fprofile in Fprofiles
                         tr
-                            th.tp.t-align: a(href=`/faculty/IT/${Fprofile.strFacultyID}`)= Fprofile.strFacultyID
+                            th.tp.t-align: a(href=`/faculty/${Fprofile.strFacultyID}`)= Fprofile.strFacultyID
                             th.t-align= Fprofile.strFacultySurname
                             th.t-align= Fprofile.strFacultyFirstname
                             th.t-align= Fprofile.strFacultyMiddlename
                             th.t-align.four.wide
-                                a(href=`/faculty/IT/${Fprofile.strFacultyID}/edit`)
+                                a(href=`/faculty/${Fprofile.strFacultyID}/edit`)
                                     i.ui.green.address.edit.icon.large
-                                a(href=`/faculty/IT/${Fprofile.strFacultyID}/remove`)
+                                a(href=`/faculty/${Fprofile.strFacultyID}/remove`)
                                     i.ui.green.address.remove.user.icon.large
                             
                 

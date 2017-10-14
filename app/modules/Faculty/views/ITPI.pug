@@ -7,13 +7,13 @@ block content
                 a.active.item(data-tab="First") Personal Information
                 a.item(data-tab="Second") Educational Attainment
                 a.item(data-tab="Third") Faculty Rank
-                a.item(data-tab="Fourth") Functions Attended
+                a.item(data-tab="Fourth") Work Experience
             div.ui.active.bottom.attached.tab.segment(data-tab="First") 
                 div.ui.ribbon.label.inverted.black.large
                     h3 Personal Information
                 div.ui.segment.height.b-adjusted
                     each prof in profs
-                        img.ui.image(src=`${prof.strFacultyImageUrl}`, alt="/images/wireframe/image.png"  height="200px" width="200px")
+                        img.ui.image(src=`${profs[0].strFacultyImageUrl}`, alt="/images/wireframe/image.png"  height="200px" width="200px")
                         div.ui.container.height
                             table.ui.padded.teal.table
                                 tbody
@@ -22,7 +22,7 @@ block content
                                         td= prof.strFacultyName
                                     tr 
                                         td Date of Birth
-                                        td= prof.dtmFacultyBday
+                                        td= prof.datFacultyBday
                                     tr 
                                         td Gender
                                         td= prof.enumFacultyGender
@@ -69,25 +69,47 @@ block content
                     h3 Ranks Achieved
                 div.ui.segment.height.b-adjusted                
                     img.ui.image(src=`${profs[0].strFacultyImageUrl}`, alt="/images/wireframe/image.png" height="200px" width="200px")
+                    div#butt.warp2.height
+                        a.button.ui.labeled.orange.icon.button.rightp(href=`/faculty/${profs[0].strFacultyID}/rank`)
+                            i.add.icon
+                            p Add Rank
+                    div.ui.container.height3
+                        div.ui.container
+                            table.ui.padded.centered.yellow.table
+                                tr
+                                    th.t-align
+                                        b Ranks Achieved
+                                    th.t-align
+                                        b Date of Effectivity
+                                
+                                tbody
+                                    each rank in ranks
+                                        tr.t-align
+                                            td=rank.strFacultyRankName
+                                            td=rank.datDateofEffectivity
             div.ui.bottom.attached.tab.segment(data-tab="Fourth")
                 div.ui.ribbon.label.inverted.black.large
-                    h3 Functions Attended
-                div.ui.segment.height.b-adjusted                
+                    h3 Work Experience
+                div.ui.segment.height.b-adjusted
                     img.ui.image(src=`${profs[0].strFacultyImageUrl}`, alt="/images/wireframe/image.png" height="200px" width="200px")
-                    div.ui.container.height
+                    div#butt.warp2.height
+                        a.button.ui.labeled.orange.icon.button.rightp(href=`/faculty/${profs[0].strFacultyID}/WorkExp`)
+                            i.add.icon
+                            p Add Work Experience
+                    div.ui.container.height3
                         div.ui.container
-                        table.ui.padded.yellow.table
-                            tbody
-                                tr 
-                                    td.five.wide
-                                        label.ui.large.tag.yellow.label Function Level
-                                    td.four.wide Function Name
-                                    td.four.wide Date
-                            each func in funcs       
+                            table.ui.padded.centered.yellow.table
                                 tr
-                                    td= func.strFunctLevelName
-                                    td= func.strFuncRefName
-                                    td= func.dtmFunctionDate
+                                    th.t-align
+                                        b Work Experience Name
+                                    th.t-align
+                                        b Working years
+                                
+                                tbody
+                                    each work in works
+                                        tr.t-align
+                                            td=work.strWorkExpName
+                                            td=work.strYear
             script.
                 $('.menu .item')
                     .tab()

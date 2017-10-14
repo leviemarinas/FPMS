@@ -1,74 +1,34 @@
-extends ../../../templates/ITmaster
+extends ../../../templates/CSmaster
 
 block content
     div.ui.centerer
         div.ui.centerer.height3
             div.ui.segment.ping.p-adjust
                 div.ui.ribbon.label.inverted.huge.teal.adjustleft
-                    label.ui Educational Attainment
+                    label.ui Add Functions
+                        i.configure.icon
                 div.height7
                 div.ui.container.inverted.teal
-                    form.ui.form.mleft(method="POST" action=`/faculty/add/EA/${FID}`)
-                        div.ui.two.fields
-                            div.ui.field
-                                label.ui.large.teal.tag Elementary School Name
-                                input(type="text" name="educ" placeholder="Example Elementary School")
-                            input(type="hidden" name="educname" value="Primary Education")
-                            input(type="hidden" name="educlevel" value="EL-0001")
-                            input(type="hidden" name="eaid" value=ID)
-                            input(type="hidden" name="units" value="0")
-                            div.ui.field
-                                label.ui.large.teal.tag Date Graduated
-                                input(type="text" name="educdate" placeholder="Date")            
-                        div.ui.two.fields
-                            div.ui.field
-                                label.ui.large.teal.tag High School Name
-                                input(type="text" name="educ" placeholder="Example High School")
-                            input(type="hidden" name="educname" value="High School")
-                            input(type="hidden" name="educlevel" value="EL-0002")
-                            input(type="hidden" name="units" value="0")
-                            div.ui.field
-                                label.ui.large.teal.tag Date Graduated
-                                input(type="text" name="educdate" placeholder="Date")
-                        div.ui.three.fields
-                            div.ui.field
-                                label.ui.large.teal.tag College/University Name
-                                input(type="text" name="educ" placeholder="Example Unversity")
-                            input(type="hidden" name="educlevel" value="EL-0003")
-                            input(type="hidden" name="units" value="0")
-                            div.ui.field
-                                label.ui.large.teal.tag Date Graduated
-                                input(type="text" name="educdate" placeholder="Date")
-                            div.ui.field
-                                label.ui.large.teal.tag Degree Name
-                                input(type="text" name="educname" placeholder="Date")
-                        div#gs.height2
-                            div.ui.two.fields
-                                div.ui.field
-                                    label.ui.larg.tag Graduate Studies 
-                                    input(type="text" name="educ" placeholder="Graduate Studies")
-                                div.ui.field
-                                    label.ui.large.teal.tag Units
-                                    input(type="number" name="units" placeholder="Units")
+                        form.ui.form(method="POST" action=`/faculty/${profs[0].strFacultyID}/func`)
                             div.ui.three.fields
                                 div.ui.field
-                                    label.ui.large.teal.tag Educ Level
-                                    select.ui.selection.search.dropdown(name="educlevel") 
+                                    label Function
+                                    select.ui.selection.search.dropdown(name="fname")
+                                        each fname in Fnames
+                                            option(value=fname.strFuncRefID) #{fname.strFuncRefName}
+                                div.ui.field
+                                    label Date
+                                    input(type="date" name="date" placeholder="Date")
+                                input(type="hidden" name="ftid" value=ID)
+                                div.ui.field
+                                    label Function Level
+                                    select.ui.selection.search.dropdown(name="level")
                                         each level in levels
-                                            option(value=level.strEducLevelID) #{level.strEducLevelName}
-                                div.ui.field
-                                    label.ui.large.teal.tag Date Graduated
-                                    input(type="text" name="educdate" placeholder="Date")
-                                div.ui.field
-                                    label.ui.large.teal.tag Degree Name
-                                    input(type="text" name="educname" placeholder="Date")
-                        div#butt.warp2.height
-                            button#add.ui.labeled.orange.icon.button.rightp(type="button")
-                                i.add.icon
-                                p Add Graduate Studies
-                            button.ui.labeled.orange.icon.button.rightp(type="submit")
-                                i.add.icon
-                                p Submit
+                                            option(value=level.strFunctLevelID) #{level.strFunctLevelName}
+                            div#butt.warp3.height
+                                button.ui.labeled.orange.icon.button.rightp()
+                                    i.add.icon
+                                    p Submit
                         script.
                             $(document).ready(function(){
                             //$('form').form('validate');
@@ -108,27 +68,24 @@ block content
                             
                             
                             });
+                            var count = 1;
 
                             $(document).on('click', '#add', function() {
 
                                 var template = 
-                                `<div class="ui four fields">\
+                                `<div class="ui three fields">\
                                     <div class ="field">\
-                                        <label> Graduate Studies</label>\
-                                        <input type="text" name="educ" placeholder="Graduate Studies">\
+                                        <label> Function Name</label>\
+                                        <input type="text" name="functionname${count}" placeholder="Function Name">\
                                         </label>\
                                     </div>\
                                     <div class="ui field">\
-                                        <label> Units </label>\
-                                        <input type="number" name="units" placeholder="Units">\
+                                        <label> Date </label>\
+                                        <input type="date" name="functiondate${count}" placeholder="Function Date">\
                                     </div>\
                                     <div class="ui field">\
-                                        <label> Date Graduated </label>\
-                                        <input type="text" name="educdate" placeholder="Date">\
-                                    </div>\
-                                    <div class="ui field">\
-                                        <label> Degree Name </label>\
-                                        <input type="text" name="educname">\
+                                        <label> Function Level </label>\
+                                        <input type="text" name="functionlevel${count}" placeholder="Function Level">\
                                     </div>\
                                 </div>\
                                 </div>` ;

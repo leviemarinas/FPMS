@@ -1,34 +1,37 @@
-extends ../../../templates/Reports/Breportmaster
+extends ../../../templates/Reports/Reportmaster
 
 block content
-    div.ui.centerer
-            div.ui.segment.ping.p-adjust
-                div.ui.ribbon.label.inverted.huge.violet
+    .ui.centerer
+            .ui.segment.ping.p-adjust
+                .ui.ribbon.label.inverted.huge.violet
                     label.ui Reports
-                div.adjustright
-                    div.ui.huge.right.ribbon.label.violet.adjustright          
+                .adjustright
+                    .ui.huge.right.ribbon.label.violet.adjustright          
                         label.ui Faculty List
-                div.ui.simple.dropdown.item Reports
+                .ui.simple.dropdown.item Reports
                     i.dropdown.icon
-                    div.ui.menu
-                        div.header Choose Report
+                    .ui.menu
+                        .header Choose Report
                         each period in periods
                             a.ui.item(href=`/reports/${period.strPeriodicalID}`) #{period.strPeriodicalName}
-                div.height4
+                .height4
                     table.ui.compact.celled.large.violet.table 
                         th
                             tr
-                                th.three.wide.tp.t-align Faculty Name
+                                th.two.wide.tp Faculty Name
                                 each report in reports
-                                    th.t-align= report.strReportTypeName
-                                    th.t-align Date Submitted
-                                    th.t-align Attachments
-                        th                           
-                            tr
-                                td.tp.t-align
-                                th.t-align
-                                    div.ui.read-only.checkbox
-                                        input(type="checkbox" checked tabindex="0" class="hidden")
-                                        label
-                                td.t-align
-                                td.t-align
+                                    th.five.wide= report.strReportTypeName
+                                    th.three.wide Attachments
+                        th  
+                            each assign in assigns                          
+                                tr
+                                    td.tp.t-align= assign.strFacultyName
+                                    td
+                                        .ui.read-only.checkbox
+                                            if assign.datDateSubmitted != null    
+                                                input(type="checkbox" checked tabindex="0" class="hidden")
+                                                label="Date Submitted:" + assign.datDateSubmitted
+                                            else
+                                                input(type="checkbox" tabindex="0" class="hidden")
+                                                label
+                                    td.t-align

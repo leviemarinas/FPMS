@@ -8,14 +8,21 @@ block body
                 i.dropdown.icon
                 div.menu
                     div.header Department
-                    a.ui.active.yellow.item(href="/faculty/IT") IT
-                    a.item(href="/faculty/CS")  CS
-            div.ui.simple.dropdown.item Reports
-                i.dropdown.icon
+                    a.item(href="/faculty") Faculty List
+            div.ui.simple.dropdown.active.item Reports
+                i.dropdown.icon.violet
                 div.menu
                     div.header Types
-                    a.ui.item(href="/reports") Report List
-                    a.ui.item(href="/reports/Rep/Assign") Assign Reports
+                    span.ui.item Functions
+                        div.ui.menu(tab-index="-1")
+                            a.ui.item(href="") Functions List
+                            a.ui.item(href="") Functions Assigned
+                            a.ui.item(href="") Functions Attended
+                    span.ui.item(href="/reports/documents") Documents
+                        div.ui.menu(tab-index="-1")
+                            a.ui.item(href="/reports/Rep/Assign") Report Assigned
+                            a.ui.item(href="/reports/Rep/Submit") Report Submit
+                            a.ui.item(href="/reports") Report List
             div.ui.simple.dropdown.item Schedule
                 i.dropdown.icon
                 div.menu

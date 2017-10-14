@@ -1,0 +1,91 @@
+extends ../../../templates/CSmaster
+
+block content
+    .ui.centerer.height3
+        .ui.segment.ping.p-adjust
+            .ui.ribbon.label.inverted.huge.teal.adjustleft
+                label.ui Work Experience
+            .ui.inverted.teal.height7
+                form.ui.form.mleft(method="POST" action=`/faculty/${profs[0].strFacultyID}/WorkExp`)
+                    .ui.field
+                        .ui.field
+                            label.ui Work Experience
+                            input(type="text" name="workex" placeholder="Work Experience")
+                        .ui.field
+                            label.ui Working year
+                            input(tpye="text" name="year" placeholder="2001-2017")
+                        .ui.field
+                            input(type="hidden" name="weid" value=workID)
+                        #here.ui.height2.two.fields.let
+                            .ui.field
+                                button.ui.labeled.orange.icon.button.rightp.height1(type="submit")
+                                    i.add.icon
+                                    p Submit
+                                button#clear.ui.labeled.orange.icon.button.rightp.height1(type="button")
+                                    i.add.icon
+                                    p Clear
+                script.
+                    $(document).ready(function(){
+                    //$('form').form('validate');
+                    $('form').form('validate #form');
+                    $('#add').click(function(){
+                    //alert("sdfg");
+                    //$('form').form('validate .form');
+                    console.log($('form'));
+                    var $inputs = $('.form');
+                    
+                    console.log($inputs[0].elements);
+                    console.log($inputs.serializeArray());
+                    
+                    var form_fields = {};
+                    $all_form_fields = $inputs.serializeArray();
+                    
+                    for(var cnt in $all_form_fields)
+                    {
+                        /* var single_field = {};
+                        single_field.identifier = $all_form_fields[cnt].name ;
+                        single_field.rules =  [
+                            {
+                                type   : 'empty',
+                                prompt : 'Please enter a valid {name}'
+                            }
+                            ] ;
+                            
+                            form_fields[$all_form_fields[cnt].name] = single_field; */
+                            
+                    }
+                    console.log(form_fields);
+                    $('form').form(	{	
+                            fields : form_fields,
+                        inline : true
+                        });
+
+                    
+                    
+                    });
+                    var count = 1;
+
+                    $(document).on('click', '#add', function() {
+
+                        var template = 
+                        `
+                            < class ="ui field">\
+                                <label> Work Experience</label>\
+                                <input type="text" name="workex${count}" placeholder="Work Experience">\
+                                </label>\
+                            <>` ;
+                        console.log(`${template}`);
+                        // $('form.ui.form').append(template);
+                        $(template).insertBefore('#here');
+                        count++;
+                        console.log(`${count}`);
+                        
+                    });
+
+
+                    });
+                    $('#multi-selects')
+                        .dropdown()
+                    ;
+                    $('#form').form('clear')
+                    ;

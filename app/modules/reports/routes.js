@@ -16,8 +16,15 @@ function report(req, res, next){
         return next();
     });
 }
+function assign(req,res,next){
+    db.query(`SELECT * FROM tblrep where strRTPeriodicalID = "${req.params.strPeriodicalID}"`,(err,results,field)=>{
+        req.assign = results;
+        return next();
+    });
+}
 function renderReportPage(req,res){
-    res.render('reports/views/Breport',{periods : req.periods, reports : req.reports});
+    res.locals.Name = 
+    res.render('reports/views/Breport',{periods : req.periods, reports : req.reports, assigns: req.assign});
 }
 router.get('/',(req,res)=>{
     db.query(`SELECT * FROM tblperiodical`,(err,results,field)=>{
@@ -25,7 +32,7 @@ router.get('/',(req,res)=>{
     });
 });
 
-router.get('/:strPeriodicalID', periods,report,renderReportPage)
+router.get('/:strPeriodicalID', periods,report,assign,renderReportPage)
 
 function reps(req,res,next){
     db.query(`SELECT * FROM tblreporttype`,(err,results,field)=>{
@@ -34,7 +41,7 @@ function reps(req,res,next){
     });
 }
 function profs(req,res,next){
-    db.query(`SELECT * FROM tblfacultyprofile`,(err,results,field)=>{
+    db.query(`SELECT * FROM tblfacultyprofile WHERE is_Deleted = "0"`,(err,results,field)=>{
         req.profs = results;
         return next();
     });
@@ -65,6 +72,35 @@ router.post('/Rep/Assign',(req,res)=>{
     }
     res.redirect('/reports');
 });
+
+
+function submit(req,res,next){
+    db.query(`SELECT * FROM tblrep WHERE strRepSubmitFacultyID = "${req.params.strFacultyID}" AND datDateSubmitted is null`,(err,results,field)=>{
+        req.submit = results;
+        return next();
+    });
+}
+
+router.get('/Rep/Submit',profs,(req,res)=>{
+    res.locals.PASS = 1;
+    res.render('reports/views/ReportSubmit',{profs : req.profs});
+}); 
+
+router.get('/Rep/Submit/:strFacultyID',profs,submit,(req,res)=>{
+    res.locals.PASS = 0;
+    res.render('reports/views/ReportSubmit',{submits : req.submit,profs:req.profs});   
+});
+
+router.put('/Rep/Submit/:strFacultyID',(req,res)=>{
+    db.query(`UPDATE tblrepsubmit SET 
+    datDateSubmitted = "${req.body.datesubmitted}"
+    WHERE strRepSubmitID = "${req.body.report}"`,(err,results,field)=>{
+        if(err) throw err;
+        res.redirect('/reports');
+    });
+});
+
+
 
 
 exports.reports = router;
