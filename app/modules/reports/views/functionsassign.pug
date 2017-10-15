@@ -9,12 +9,18 @@ block content
                 label.ui Faculty                                
             div.ui.two.fields.height7.pright
                 form.ui.form(method="POST" action=`/functions/func/Assign`)
-                    div.ui.two.fields
+                    div.ui.three.fields
                         div.ui.field
                             label.ui Select Faculty
                             select#multi-select.search.multiple.selection.dropdown(name="faculty[]")
                                 each prof in profs
                                     option(value=prof.strFacultyID) #{prof.strFacultySurname +' '+prof.strFacultyFirstname}
+                        div.ui.field
+                            label.ui Function Name
+                            input(type="text" name="name")
+                        div.ui.sponsor
+                            label.ui Function Sponsor
+                            input(type="text" name="sponsor")
                     div.ui.three.fields
                         div.ui.field
                             label Function Type
@@ -22,12 +28,12 @@ block content
                                 each ref in refs
                                     option(value=ref.strFuncRefID) #{ref.strFuncRefName}
                         div.ui.field
-                            label Function Type
+                            label Function Level
                             select#select.ui.search.selection.dropdown(name="level")
                                 each level in levels
                                     option(value=level.strFunctLevelID) #{level.strFunctLevelName}
                         div.ui.field
-                            label Functio Date
+                            label Function Date
                             input(type="Date" name="date" placeholder="Date")
                             input(type="hidden" name="ftid" value=ID)
                         div.height2

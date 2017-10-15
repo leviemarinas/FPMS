@@ -139,8 +139,8 @@ functionRouter.post('/func/Assign',(req,res)=>{
     var newID;
     newID = counter.smart(req.body.ftid);
     for(var x=0;x<req.body.faculty.length;x++){
-        db.query(`INSERT INTO tblfunctions (strFunctionsID,strFuncLevelID,datFunctionDate,strFunctionsFRID,strFunctionsFID) 
-        VALUES("${newID}","${req.body.level}","${req.body.date}","${req.body.type}","${req.body.faculty[x]}")`,(err,results,field)=>{
+        db.query(`INSERT INTO tblfunctions (strFunctionsID,strFuncLevelID,datFunctionDate,strFunctionsFRID,strFunctionsFID,strFunctionsName,strFunctionsSponsor) 
+        VALUES("${newID}","${req.body.level}","${req.body.date}","${req.body.type}","${req.body.faculty[x]}","${req.body.name}","${req.body.sponsor}")`,(err,results,field)=>{
             if(err) throw err;
         });
         newID=counter.smart(newID);

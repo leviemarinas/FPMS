@@ -22,7 +22,7 @@ block content
                                 label.ui Functions
                                 select#select.search.selection.dropdown(name="attend")
                                     each attend in attends
-                                        option(value=attend.strFunctionsID) #{attend.strFunctLevelName +' '+attend.strFuncRefName}
+                                        option(value=attend.strFunctionsID) #{attend.strFunctionsName}
                             div.ui.field.height2.pright
                                 button#add.ui.labeled.orange.icon.button.width5.height3(type="Submit")
                                     i.add.icon

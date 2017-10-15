@@ -8,9 +8,9 @@ block content
                 div.adjustright
                     div.ui.huge.right.ribbon.label.violet.adjustright          
                             label.ui Faculty List
-                div.ui.simple.dropdown.item Reports
+                div.ui.simple.dropdown.item Faculty
                     i.dropdown.icon
                     div.ui.menu
-                        div.header.height5 Choose Report
+                        div.header.height5 Choose Faculty
                         each prof in profs
                             a.ui.item(href=`/functions/${prof.strFacultyID}`) #{prof.strFacultySurname + ',' + prof.strFacultyFirstname}

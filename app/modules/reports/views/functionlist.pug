@@ -18,15 +18,19 @@ block content
                     table.ui.compact.celled.large.violet.table 
                         th
                             tr
-                                th.four.wide.tp Functions
-                                th.five.wide Functions Level
-                                th.four.wide Functions Date
-                                th.three.wide Attendance
+                                th.five.wide Functions Name
+                                th.two.wide.tp Functions type
+                                th.two.wide Functions Level
+                                th.two.wide Functions Sponsor
+                                th.two.wide Functions Date
+                                th.two.wide Attendance
                         th
                             each func in funcs                        
                                 tr
-                                    td.tp.t-align= func.strFuncRefName 
+                                    td.tp.t-align= func.strFunctionsName
+                                    td= func.strFuncRefName 
                                     td=func.strFunctLevelName
+                                    td=func.strFunctionsSponsor
                                     td.t-align=func.datFunctionDate
                                     td
                                         .ui.read-only.checkbox
