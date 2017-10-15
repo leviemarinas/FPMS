@@ -42,7 +42,7 @@ function renderPage(req,res){
         return res.render('Faculty/views/AFpi',{CS : req.CS, CT : req.CT, depts : req.depts, emp : req.emp});
     })
 }
-router.get('/add/P',PS,PD,PF,PG,renderPage);
+router.get('/add/P',authMiddleware.hasAuth,PS,PD,PF,PG,renderPage);
 
 
 router.post('/add/P',(req,res)=>{
@@ -54,7 +54,7 @@ router.post('/add/P',(req,res)=>{
     })
 });
 
-router.get('/:strFacultyID/edit',PS,PD,PF,PG,(req,res)=>{
+router.get('/:strFacultyID/edit',authMiddleware.hasAuth,PS,PD,PF,PG,(req,res)=>{
     db.query(`SELECT * from tblfacultyprofile where strFacultyID = "${req.params.strFacultyID}"`,(err,results,field)=>{
         if(err) throw err;
         console.log(results);
@@ -92,7 +92,7 @@ function level(req,res,next){
 }
 
 
-router.get('/add/EA/:strFacultyID',level,(req,res)=>{
+router.get('/add/EA/:strFacultyID',authMiddleware.hasAuth,level,(req,res)=>{
     db.query(`SELECT MAX(strEducAttainID) as strEducAttainID FROM tbleducattain`,(err,results,field)=>{
         res.locals.ID = results[0].strEducAttainID;
         res.locals.FID = req.params.strFacultyID;
@@ -157,12 +157,11 @@ function renderProfile(req,res){
     res.render('Faculty/views/ITPI', {educs : req.educ, funcs : req.func, profs : req.prof, works : req.work, ranks : req.rank})
 }
 router.get('/:strFacultyID',authMiddleware.hasAuth,educ,func,prof,work,ranks,renderProfile)
-router.get('/:strFacultyID',authMiddleware.hasAuth,educ,func,prof,work,ranks,renderProfile)
 
 
 
 
-router.get('/:strFacultyID/WorkExp',prof,(req,res)=>{
+router.get('/:strFacultyID/WorkExp',authMiddleware.hasAuth,prof,(req,res)=>{
     db.query(`SELECT MAX(strWorkExpID) AS strWorkExpID FROM tblworkexp`,(err,results,field)=>{
         console.log(results[0].strWorkExpID);
         res.locals.workID = results[0].strWorkExpID;
@@ -186,7 +185,7 @@ function rankref(req,res,next){
 }
 
 
-router.get('/:strFacultyID/rank',rankref,prof,(req,res)=>{
+router.get('/:strFacultyID/rank',authMiddleware.hasAuth,rankref,prof,(req,res)=>{
     db.query(`SELECT MAX(strFacultyRankID) as strFacultyRankID FROM tblfacultyrank`,(err,results,field)=>{
         res.locals.ID = results[0].strFacultyRankID;
         return res.render('Faculty/views/AFrn',{ranks : req.rank, profs : req.prof});

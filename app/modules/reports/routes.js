@@ -1,4 +1,5 @@
 var router = require('express').Router();
+var functionRouter = require('express').Router();
 var db = require('../../lib/database')();
 var authMiddleware = require('../auth/middlewares/auth');
 var counter = require('../auth/middlewares/SC');
@@ -18,21 +19,22 @@ function report(req, res, next){
 }
 function assign(req,res,next){
     db.query(`SELECT * FROM tblrep where strRTPeriodicalID = "${req.params.strPeriodicalID}"`,(err,results,field)=>{
+        if(results[0]==null) res.redirect('/reports');
         req.assign = results;
         return next();
     });
 }
 function renderReportPage(req,res){
-    res.locals.Name = 
+    res.locals.Name =
     res.render('reports/views/Breport',{periods : req.periods, reports : req.reports, assigns: req.assign});
 }
-router.get('/',(req,res)=>{
+router.get('/',authMiddleware.hasAuth,(req,res)=>{
     db.query(`SELECT * FROM tblperiodical`,(err,results,field)=>{
         return res.render('reports/views/report',{periods : results});
     });
 });
 
-router.get('/:strPeriodicalID', periods,report,assign,renderReportPage)
+router.get('/:strPeriodicalID',authMiddleware.hasAuth, periods,report,assign,renderReportPage)
 
 function reps(req,res,next){
     db.query(`SELECT * FROM tblreporttype`,(err,results,field)=>{
@@ -56,11 +58,11 @@ function renderReportAssign(req,res){
     res.render('reports/views/ReportSelect',{reps : req.reps , profs : req.profs});
 }
 
-router.get('/Rep/Assign',reps,profs,ID,renderReportAssign)
+router.get('/Rep/Assign',authMiddleware.hasAuth,reps,profs,ID,renderReportAssign)
 
 router.post('/Rep/Assign',(req,res)=>{
     var faculty;
-    var newID,rotID;
+    var newID;
     faculty = req.body.faculty;
     newID = counter.smart(req.body.rsid);
     for(var x=0;x<faculty.length;x++){
@@ -81,12 +83,12 @@ function submit(req,res,next){
     });
 }
 
-router.get('/Rep/Submit',profs,(req,res)=>{
+router.get('/Rep/Submit',authMiddleware.hasAuth,profs,(req,res)=>{
     res.locals.PASS = 1;
     res.render('reports/views/ReportSubmit',{profs : req.profs});
 }); 
 
-router.get('/Rep/Submit/:strFacultyID',profs,submit,(req,res)=>{
+router.get('/Rep/Submit/:strFacultyID',authMiddleware.hasAuth,profs,submit,(req,res)=>{
     res.locals.PASS = 0;
     res.render('reports/views/ReportSubmit',{submits : req.submit,profs:req.profs});   
 });
@@ -101,6 +103,79 @@ router.put('/Rep/Submit/:strFacultyID',(req,res)=>{
 });
 
 
+function ref(req,res,next){
+    db.query(`SELECT * FROM tblfunctionsref`,(err,results,field)=>{
+        req.refs = results;
+        return next();
+    });
+}
+function level(req,res,next){
+    db.query(`SELECT * FROM tblfunctlevel`,(err,results,field)=>{
+        req.levels = results;
+        return next();
+    });
+}
+
+
+
+
+functionRouter.get('/',authMiddleware.hasAuth,profs,(req,res)=>{
+    res.render('reports/views/function',{profs : req.profs})
+});
+
+functionRouter.get('/:strFacultyID',authMiddleware.hasAuth,profs,(req,res)=>{
+    db.query(`SELECT * from tblfunc where strFacultyID = "${req.params.strFacultyID}"`,(err,results,field)=>{
+        if(results[0]==null) res.redirect('/functions')
+        return res.render('reports/views/functionlist',{profs : req.profs, funcs : results})
+    });
+});
+functionRouter.get('/func/Assign',authMiddleware.hasAuth,profs,ref,level,(req,res)=>{
+    db.query(`SELECT max(strFunctionsID) as strFunctionsID from tblfunctions`,(err,results,field)=>{
+        res.locals.ID = results[0].strFunctionsID;
+        return res.render('reports/views/functionsassign',{refs : req.refs, levels : req.levels, profs : req.profs})
+    });
+});
+functionRouter.post('/func/Assign',(req,res)=>{
+    var newID;
+    newID = counter.smart(req.body.ftid);
+    for(var x=0;x<req.body.faculty.length;x++){
+        db.query(`INSERT INTO tblfunctions (strFunctionsID,strFuncLevelID,datFunctionDate,strFunctionsFRID,strFunctionsFID) 
+        VALUES("${newID}","${req.body.level}","${req.body.date}","${req.body.type}","${req.body.faculty[x]}")`,(err,results,field)=>{
+            if(err) throw err;
+        });
+        newID=counter.smart(newID);
+    }
+    res.redirect('/functions');
+});
+
+function attend(req,res,next){
+    db.query(`SELECT * FROM tblfunc WHERE strFacultyID = "${req.params.strFacultyID}" and bitIsPresent = 0`,(err,results,field)=>{
+        req.attends = results;
+        return next();
+    });
+}
+
+functionRouter.get('/func/Attendance',authMiddleware.hasAuth,profs,(req,res)=>{
+    res.locals.PASS = 1;
+    res.render('reports/views/functionattendance',{profs : req.profs});
+}); 
+functionRouter.get('/func/Attendance/:strFacultyID',authMiddleware.hasAuth,profs,attend,(req,res)=>{
+    res.locals.PASS = 0;
+    res.render('reports/views/functionattendance',{profs:req.profs, attends : req.attends});   
+});
+functionRouter.put('/func/Attendance/:strFacultyID',(req,res)=>{
+    db.query(`UPDATE tblfunctions SET 
+    bitIsPresent = '1'
+    WHERE strFunctionsID = "${req.body.attend}"`,(err,results,field)=>{
+        if(err) throw err;
+        res.redirect('/reports');
+    });
+});
+
+
+
+
 
 
 exports.reports = router;
+exports.functions = functionRouter;

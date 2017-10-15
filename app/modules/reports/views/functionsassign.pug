@@ -4,11 +4,11 @@ block content
     div.ui.centerer
         div.ui.segment.ping.p-adjust
             div.ui.ribbon.label.inverted.huge.green.adjustleft
-                label.ui Document Reports
+                label.ui Functions
             div.ui.huge.adjustleft.green.label
                 label.ui Faculty                                
             div.ui.two.fields.height7.pright
-                form.ui.form(method="POST" action=`/reports/Rep/Assign`)
+                form.ui.form(method="POST" action=`/functions/func/Assign`)
                     div.ui.two.fields
                         div.ui.field
                             label.ui Select Faculty
@@ -17,14 +17,19 @@ block content
                                     option(value=prof.strFacultyID) #{prof.strFacultySurname +' '+prof.strFacultyFirstname}
                     div.ui.three.fields
                         div.ui.field
-                            label Report Type
+                            label Function Type
                             select#select.ui.search.selection.dropdown(name="type")
-                                each rep in reps
-                                    option(value=rep.strReportTypeID) #{rep.strReportTypeName}
+                                each ref in refs
+                                    option(value=ref.strFuncRefID) #{ref.strFuncRefName}
                         div.ui.field
-                            label Deadline
-                            input(type="Date" name="deadline" placeholder="Deadline")
-                            input(type="hidden" name="rsid" value=ID)
+                            label Function Type
+                            select#select.ui.search.selection.dropdown(name="level")
+                                each level in levels
+                                    option(value=level.strFunctLevelID) #{level.strFunctLevelName}
+                        div.ui.field
+                            label Functio Date
+                            input(type="Date" name="date" placeholder="Date")
+                            input(type="hidden" name="ftid" value=ID)
                         div.height2
                             button#add.ui.labeled.orange.icon.button.rightp()
                                 i.add.icon

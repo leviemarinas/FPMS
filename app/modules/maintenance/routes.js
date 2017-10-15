@@ -3,17 +3,17 @@ var db = require('../../lib/database')();
 var authMiddleware = require('../auth/middlewares/auth');
 var counter = require('../auth/middlewares/SC');
 
-router.get('/',(req,res)=>{
+router.get('/',authMiddleware.hasAuth,(req,res)=>{
     res.render('maintenance/views/mainte');
 });
 
 
-router.get('/Admin',(req,res)=>{
+router.get('/Admin',authMiddleware.hasAuth,(req,res)=>{
     db.query(`select * from tbladmin`,(err,results,field)=>{
         return res.render('maintenance/views/pages/MainteAdmin',{admins : results});
     });
 });
-router.get('/Admin/new',(req,res)=>{
+router.get('/Admin/new',authMiddleware.hasAuth,(req,res)=>{
     db.query(`select * from tblfacultyprofile left join tbladmin on strFacultyID = stradminFID where stradminFID is null`,(err,results,field)=>{
         return res.render('maintenance/views/forms/MainteformAdmin',{faculties : results});
     });
@@ -34,7 +34,7 @@ function PD(req,res,next){
         return next();
     });
 }
-router.get('/Admin/:strUsername',PD,(req,res)=>{
+router.get('/Admin/:strUsername',authMiddleware.hasAuth,PD,(req,res)=>{
     db.query(`SELECT * FROM tbladmin where strUsername = "${req.params.strUsername}"`,(err,results,field)=>{
         if(err) throw err;
         if(results[0]==null) res.redirect('/maintenance/Admin');
@@ -59,12 +59,12 @@ router.get('/Admin/:strUsername/remove',(req,res)=>{
 });
 
 //CITIZENSHIP-CITIZENSHIP-CITIZENSHIP-CITIZENSHIP-CITIZENSHIP-CITIZENSHIP-CITIZENSHIP-CITIZENSHIP-CITIZENSHIP-CITIZENSHIP-CITIZENSHIP-CITIZENSHIP
-router.get('/Citizenship',(req,res)=>{
+router.get('/Citizenship',authMiddleware.hasAuth,(req,res)=>{
     db.query(`select * from tblcitizenship`,(err,results,field)=>{
         return res.render('maintenance/views/pages/MainteCitizenship',{citizens : results});
     });
 });
-router.get('/Citizenship/new',(req,res)=>{
+router.get('/Citizenship/new',authMiddleware.hasAuth,(req,res)=>{
     db.query(`SELECT max(strCitizenshipID) AS strCitizenshipID FROM tblcitizenship`,(err,results,field)=>{
         res.locals.ID = results[0].strCitizenshipID; 
         return res.render('maintenance/views/forms/MainteformCitizen');
@@ -77,7 +77,7 @@ router.post('/Citizenship/new',(req,res)=>{
         return res.redirect('/maintenance/Citizenship');
     })
 });
-router.get('/Citizenship/:strCitizenshipID',(req,res)=>{
+router.get('/Citizenship/:strCitizenshipID',authMiddleware.hasAuth,(req,res)=>{
     db.query(`SELECT * FROM tblcitizenship where strCitizenshipID =  "${req.params.strCitizenshipID}"`,(err,results,field)=>{
         if(err) throw err;
         if(results[0]==null) res.redirect('/maintenance/Citizenship');
@@ -101,12 +101,12 @@ router.get('/Citizenship/:strCitizenshipID/remove',(req,res)=>{
 
 //CIVILSTATUS-CIVILSTATUS-CIVILSTATUS-CIVILSTATUS-CIVILSTATUS-CIVILSTATUS-CIVILSTATUS-CIVILSTATUS-CIVILSTATUS-CIVILSTATUS-CIVILSTATUS-CIVILSTATUS
 
-router.get('/CivilStatus',(req,res)=>{
+router.get('/CivilStatus',authMiddleware.hasAuth,(req,res)=>{
     db.query(`select * from tblcivilstatus`,(err,results,field)=>{
         return res.render('maintenance/views/pages/MainteCivilStatus',{civils : results});
     });
 });
-router.get('/CivilStatus/new',(req,res)=>{
+router.get('/CivilStatus/new',authMiddleware.hasAuth,(req,res)=>{
     db.query(`SELECT max(strCivilStatusID) AS strCivilStatusID FROM tblCivilStatus`,(err,results,field)=>{
         res.locals.ID = results[0].strCivilStatusID; 
         return res.render('maintenance/views/forms/MainteformCivilStatus');
@@ -119,7 +119,7 @@ router.post('/CivilStatus/new',(req,res)=>{
         return res.redirect('/maintenance/CivilStatus');
     })
 });
-router.get('/CivilStatus/:strCivilStatusID',(req,res)=>{
+router.get('/CivilStatus/:strCivilStatusID',authMiddleware.hasAuth,(req,res)=>{
     db.query(`SELECT * FROM tblCivilStatus where strCivilStatusID =  "${req.params.strCivilStatusID}"`,(err,results,field)=>{
         if(err) throw err;
         if(results[0]==null) res.redirect('/maintenance/CivilStatus');
@@ -143,12 +143,12 @@ router.get('/CivilStatus/:strCivilStatusID/remove',(req,res)=>{
 
 //EDUCLEVEL-EDUCLEVEL-EDUCLEVEL-EDUCLEVEL-EDUCLEVEL-EDUCLEVEL-EDUCLEVEL-EDUCLEVEL-EDUCLEVEL-EDUCLEVEL-EDUCLEVEL-EDUCLEVEL-EDUCLEVEL-EDUCLEVEL-EDUCLEVEL
 
-router.get('/EducLevel',(req,res)=>{
+router.get('/EducLevel',authMiddleware.hasAuth,(req,res)=>{
     db.query(`select * from tbleduclevel`,(err,results,field)=>{
         return res.render('maintenance/views/pages/MainteEducationalLevel',{educs : results});
     });
 });
-router.get('/EducLevel/new',(req,res)=>{
+router.get('/EducLevel/new',authMiddleware.hasAuth,(req,res)=>{
     db.query(`SELECT max(strEducLevelID) AS strEducLevelID FROM tblEducLevel`,(err,results,field)=>{
         res.locals.ID = results[0].strEducLevelID; 
         return res.render('maintenance/views/forms/MainteformEducationalLevel');
@@ -161,7 +161,7 @@ router.post('/EducLevel/new',(req,res)=>{
         return res.redirect('/maintenance/EducLevel');
     })
 });
-router.get('/EducLevel/:strEducLevelID',(req,res)=>{
+router.get('/EducLevel/:strEducLevelID',authMiddleware.hasAuth,(req,res)=>{
     db.query(`SELECT * FROM tblEducLevel where strEducLevelID =  "${req.params.strEducLevelID}"`,(err,results,field)=>{
         if(err) throw err;
         if(results[0]==null) res.redirect('/maintenance/EducLevel');
@@ -185,12 +185,12 @@ router.get('/EducLevel/:strEducLevelID/remove',(req,res)=>{
 
 //EMPTYPE-EMPTYPE-EMPTYPE-EMPTYPE-EMPTYPE-EMPTYPE-EMPTYPE-EMPTYPE-EMPTYPE-EMPTYPE-EMPTYPE-EMPTYPE-EMPTYPE-EMPTYPE-EMPTYPE-EMPTYPE-EMPTYPE-EMPTYPE
 
-router.get('/EmployeeType',(req,res)=>{
+router.get('/EmployeeType',authMiddleware.hasAuth,(req,res)=>{
     db.query(`select * from tblemployeetype`,(err,results,field)=>{
         return res.render('maintenance/views/pages/MainteEmployeeType',{emps : results});
     });
 });
-router.get('/EmployeeType/new',(req,res)=>{
+router.get('/EmployeeType/new',authMiddleware.hasAuth,(req,res)=>{
     db.query(`SELECT max(strEmployeeTypeID) AS strEmployeeTypeID FROM tblEmployeeType`,(err,results,field)=>{
         res.locals.ID = results[0].strEmployeeTypeID; 
         return res.render('maintenance/views/forms/MainteformEmployeeType');
@@ -203,7 +203,7 @@ router.post('/EmployeeType/new',(req,res)=>{
         return res.redirect('/maintenance/EmployeeType');
     })
 });
-router.get('/EmployeeType/:strEmployeeTypeID',(req,res)=>{
+router.get('/EmployeeType/:strEmployeeTypeID',authMiddleware.hasAuth,(req,res)=>{
     db.query(`SELECT * FROM tblEmployeeType where strEmployeeTypeID =  "${req.params.strEmployeeTypeID}"`,(err,results,field)=>{
         if(err) throw err;
         if(results[0]==null) res.redirect('/maintenance/EmployeeType');
@@ -227,12 +227,12 @@ router.get('/EmployeeType/:strEmployeeTypeID/remove',(req,res)=>{
 
 //FACULTYRANK-FACULTYRANK-FACULTYRANK-FACULTYRANK-FACULTYRANK-FACULTYRANK-FACULTYRANK-FACULTYRANK-FACULTYRANK-FACULTYRANK-FACULTYRANK-FACULTYRANK-FACULTYRANK
 
-router.get('/FacultyRank',(req,res)=>{
+router.get('/FacultyRank',authMiddleware.hasAuth,(req,res)=>{
     db.query(`select * from tblfacultyrankref`,(err,results,field)=>{
         return res.render('maintenance/views/pages/MainteFacultyRank',{ranks : results});
     });
 });
-router.get('/FacultyRank/new',(req,res)=>{
+router.get('/FacultyRank/new',authMiddleware.hasAuth,(req,res)=>{
     db.query(`SELECT max(strFacultyRankRefID) AS strFacultyRankRefID FROM tblfacultyrankref`,(err,results,field)=>{
         res.locals.ID = results[0].strFacultyRankRefID; 
         return res.render('maintenance/views/forms/MainteformFacultyRank');
@@ -245,7 +245,7 @@ router.post('/FacultyRank/new',(req,res)=>{
         return res.redirect('/maintenance/FacultyRank');
     })
 });
-router.get('/FacultyRank/:strFacultyRankRefID',(req,res)=>{
+router.get('/FacultyRank/:strFacultyRankRefID',authMiddleware.hasAuth,(req,res)=>{
     db.query(`SELECT * FROM tblfacultyrankref where strFacultyRankRefID =  "${req.params.strFacultyRankRefID}"`,(err,results,field)=>{
         if(err) throw err;
         if(results[0]==null) res.redirect('/maintenance/FacultyRank');
@@ -269,12 +269,12 @@ router.get('/FacultyRank/:strFacultyRankRefID/remove',(req,res)=>{
 
 //FUNCTIONLEVEL-FUNCTIONLEVEL-FUNCTIONLEVEL-FUNCTIONLEVEL-FUNCTIONLEVEL-FUNCTIONLEVEL-FUNCTIONLEVEL-FUNCTIONLEVEL-FUNCTIONLEVEL-FUNCTIONLEVEL-FUNCTIONLEVEL
 
-router.get('/FunctionLevel',(req,res)=>{
+router.get('/FunctionLevel',authMiddleware.hasAuth,(req,res)=>{
     db.query(`select * from tblfunctlevel`,(err,results,field)=>{
         return res.render('maintenance/views/pages/MainteFunctionLevel',{levels : results});
     });
 });
-router.get('/FunctionLevel/new',(req,res)=>{
+router.get('/FunctionLevel/new',authMiddleware.hasAuth,(req,res)=>{
     db.query(`SELECT max(strFunctLevelID) AS strFunctLevelID FROM tblfunctlevel`,(err,results,field)=>{
         res.locals.ID = results[0].strFunctLevelID; 
         return res.render('maintenance/views/forms/MainteformFunctionLevel');
@@ -287,7 +287,7 @@ router.post('/FunctionLevel/new',(req,res)=>{
         return res.redirect('/maintenance/FunctionLevel');
     })
 });
-router.get('/FunctionLevel/:strFunctLevelID',(req,res)=>{
+router.get('/FunctionLevel/:strFunctLevelID',authMiddleware.hasAuth,(req,res)=>{
     db.query(`SELECT * FROM tblfunctlevel where strFunctLevelID =  "${req.params.strFunctLevelID}"`,(err,results,field)=>{
         if(err) throw err;
         if(results[0]==null) res.redirect('/maintenance/FunctionLevel');
@@ -311,12 +311,12 @@ router.get('/FunctionLevel/:strFunctLevelID/remove',(req,res)=>{
 
 //FUNCTIONS-FUNCTIONS-FUNCTIONS-FUNCTIONS-FUNCTIONS-FUNCTIONS-FUNCTIONS-FUNCTIONS-FUNCTIONS-FUNCTIONS-FUNCTIONS-FUNCTIONS-FUNCTIONS-FUNCTIONS-FUNCTIONS-FUNCTIONS-FUNCTIONS
 
-router.get('/Functions',(req,res)=>{
+router.get('/Functions',authMiddleware.hasAuth,(req,res)=>{
     db.query(`select * from tblfunctionsref`,(err,results,field)=>{
         return res.render('maintenance/views/pages/MainteFunctionsAttended',{ftypes : results});
     });
 });
-router.get('/Functions/new',(req,res)=>{
+router.get('/Functions/new',authMiddleware.hasAuth,(req,res)=>{
     db.query(`SELECT max(strFuncRefID) AS strFuncRefID FROM tblfunctionsref`,(err,results,field)=>{
         res.locals.ID = results[0].strFuncRefID; 
         return res.render('maintenance/views/forms/MainteformFunctionType');
@@ -329,7 +329,7 @@ router.post('/Functions/new',(req,res)=>{
         return res.redirect('/maintenance/Functions');
     })
 });
-router.get('/Functions/:strFuncRefID',(req,res)=>{
+router.get('/Functions/:strFuncRefID',authMiddleware.hasAuth,(req,res)=>{
     db.query(`SELECT * FROM tblfunctionsref where strFuncRefID =  "${req.params.strFuncRefID}"`,(err,results,field)=>{
         if(err) throw err;
         if(results[0]==null) res.redirect('/maintenance/Functions');
@@ -353,17 +353,12 @@ router.get('/Functions/:strFuncRefID/remove',(req,res)=>{
 
 //PERIODICAL-PERIODICAL-PERIODICAL-PERIODICAL-PERIODICAL-PERIODICAL-PERIODICAL-PERIODICAL-PERIODICAL-PERIODICAL-PERIODICAL-PERIODICAL-PERIODICAL-PERIODICAL-PERIODICAL-PERIODICAL
 
-router.get('/Periodical',(req,res)=>{
+router.get('/Periodical',authMiddleware.hasAuth,(req,res)=>{
     db.query(`select * from tblperiodical`,(err,results,field)=>{
         return res.render('maintenance/views/pages/MaintePeriodicalReport',{periods : results});
     });
 });
-router.get('/Periodical',(req,res)=>{
-    db.query(`select * from tblPeriodical`,(err,results,field)=>{
-        return res.render('maintenance/views/pages/MaintePeriodical',{civils : results});
-    });
-});
-router.get('/Periodical/new',(req,res)=>{
+router.get('/Periodical/new',authMiddleware.hasAuth,(req,res)=>{
     db.query(`SELECT max(strPeriodicalID) AS strPeriodicalID FROM tblPeriodical`,(err,results,field)=>{
         res.locals.ID = results[0].strPeriodicalID; 
         return res.render('maintenance/views/forms/MainteformPeriodical');
@@ -376,7 +371,7 @@ router.post('/Periodical/new',(req,res)=>{
         return res.redirect('/maintenance/Periodical');
     })
 });
-router.get('/Periodical/:strPeriodicalID',(req,res)=>{
+router.get('/Periodical/:strPeriodicalID',authMiddleware.hasAuth,(req,res)=>{
     db.query(`SELECT * FROM tblPeriodical where strPeriodicalID =  "${req.params.strPeriodicalID}"`,(err,results,field)=>{
         if(err) throw err;
         if(results[0]==null) res.redirect('/maintenance/Periodical');
