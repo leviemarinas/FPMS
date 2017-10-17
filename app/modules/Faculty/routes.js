@@ -116,6 +116,28 @@ router.post('/add/EA/:strFacultyID',(req,res)=>{
 });
 
 
+function levell(req,res,next){
+    db.query(`SELECT * FROM tbleduclevel`,(err,results,field)=>{
+        req.levels = results;
+        return next();
+    });
+}
+
+router.get('/:strFacultyID/Educ',prof,levell,(req,res)=>{
+    db.query(`SELECT max(strEducAttainID) AS strEducAttainID FROM tbleducattain`,(err,results,field)=>{
+        res.locals.ID = results[0].strEducAttainID;
+        return res.render('faculty/views/AFeaf',{profs : req.prof, levels : req.levels})
+    });
+});
+router.post('/:strFacultyID/Educ',(req,res)=>{
+    var newID = counter.smart(req.body.eaid);
+    db.query(`INSERT INTO tbleducattain values("${newID}","${req.body.deg}","${req.body.suc}","${req.body.dategrads}","${req.body.level}","${req.params.strFacultyID}",${req.body.gradunits})`,(err,results,field)=>{
+        if(err) throw err;
+        return res.redirect('/faculty');
+    })
+});
+
+
 
 
 
@@ -127,13 +149,6 @@ function educ(req,res,next){
 
     });
 
-}
-function func(req,res,next){
-    db.query(`select * from tblfunc where strFacultyID = "${req.params.strFacultyID}"`,(err,results,field)=>{
-        req.func = results;
-        return next();
-
-    });
 }
 function prof(req,res,next){
     db.query(`select * from tblperso where strFacultyID = "${req.params.strFacultyID}"`,(err,results,field)=>{
@@ -154,9 +169,9 @@ function ranks(req,res,next){
     });
 }
 function renderProfile(req,res){
-    res.render('Faculty/views/ITPI', {educs : req.educ, funcs : req.func, profs : req.prof, works : req.work, ranks : req.rank})
+    res.render('Faculty/views/ITPI', {educs : req.educ, profs : req.prof, works : req.work, ranks : req.rank})
 }
-router.get('/:strFacultyID',authMiddleware.hasAuth,educ,func,prof,work,ranks,renderProfile)
+router.get('/:strFacultyID',authMiddleware.hasAuth,educ,prof,work,ranks,renderProfile)
 
 
 

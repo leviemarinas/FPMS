@@ -1,0 +1,46 @@
+extends ../../../templates/ITmaster
+block content
+    div.ui.centerer
+        div.ui.segment.ping.p-adjust
+            div
+            div.ui.ribbon.label.inverted.huge.teal.adjustleft
+                label.ui Educational Attainment
+            div.ui.huge.adjustleft.teal.label
+                label.ui Faculty
+            div.ui.two.fields.height7.pright()
+                form.ui.form(method="POST" action=`/faculty/${profs[0].strFacultyID}/Educ`)
+                    div.ui.three.fields
+                        div.ui.field
+                            label.ui Select Studies
+                            select#select.search.selection.dropdown(name="level")
+                                each level in levels
+                                    option(value=level.strEducLevelID) #{level.strEducLevelName}
+                    div.ui.four.fields
+                        div.ui.field
+                            label School /  University / College
+                            input(type="text" name="suc" placeholder="School")
+                        input(type="hidden" name="eaid" value=ID)
+                        div.ui.field
+                            label Degree
+                            input(type="text" name="deg")
+                        div.ui.field    
+                            label Date Graduated
+                            input(type="text" name="dategrads" placeholder="Date Graduated")
+                        div.ui.field
+                            label Units
+                            input(type="number" name="gradunits" placeholder="Units")
+                        div.ui.field.height2.pright
+                            button#add.ui.labeled.orange.icon.button.width5.height3()
+                                i.add.icon
+                                p Add 
+            script.
+                $('#select','').dropdown();
+                $('#multi-select')
+                    .dropdown()
+                ;
+                $('#multi-selects')
+                    .dropdown()
+                ;
+                $('.menu .item')
+                    .tab()
+                ;
