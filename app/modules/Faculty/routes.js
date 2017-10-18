@@ -214,4 +214,8 @@ router.post('/:strFacultyID/rank',(req,res)=>{
     });
 });
 
+router.get('/frontpage',(req,res)=>{
+    res.render('/Faculty/views/frontpage');
+});
+
 exports.faculty = router;

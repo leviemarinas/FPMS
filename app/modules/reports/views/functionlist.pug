@@ -4,17 +4,20 @@ block content
     div.ui.centerer
             div.ui.segment.ping.p-adjust
                 div.ui.ribbon.label.inverted.huge.violet
-                    label.ui Functions
+                    label.ui Functions  
                 div.adjustright
                     div.ui.huge.right.ribbon.label.violet.adjustright          
                             label.ui Faculty List
-                div.ui.simple.dropdown.item Faculty
+                div#select.ui.simple.dropdown.item Faculty
                     i.dropdown.icon
                     div.ui.menu
                         div.header Choose Faculty
                         each prof in profs
                             a.ui.item(href=`/functions/${prof.strFacultyID}`) #{prof.strFacultySurname + ',' + prof.strFacultyFirstname}
                 .height4
+                    div.center.aligned.container
+                        div.ui.label.inverted.large.violet
+                            label.ui Faculty Name
                     table.ui.compact.celled.large.violet.table 
                         th
                             tr
@@ -40,3 +43,14 @@ block content
                                             else
                                                 input(type="checkbox" tabindex="0" class="hidden")
                                                 label
+                                        script.
+                                            $('#select','').dropdown();
+                                            $('#multi-select')
+                                                .dropdown()
+                                            ;
+                                            $('#multi-selects')
+                                                .dropdown()
+                                            ;
+                                            $('.menu .item')
+                                                .tab()
+                                            ;

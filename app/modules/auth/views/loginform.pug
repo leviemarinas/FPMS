@@ -2,20 +2,36 @@ extends ../../../templates/base
 
 block body
     - var hasText = typeof incorrect !== 'undefined' ? 'Incorrect Username or Password' : ''
-    div.ui.container
-        div.ui.middle.teal.inverted.segment
-            if hasText 
-                .ui.warning.message 
-                    i.close.icon
-                    div.header #{hasText}
-                        p Please Try Again
-            form.ui.form(method="POST" action="/login")
-                div.six.wide.field
-                    label.white Username
-                    input(type="text" name="username" placeholder="Username")
-                div.six.wide.field
-                    label.ui.teal Password
-                    input(type="password" name="password")
-                button.ui.basic.button.six.wide.green.inverted.field(type="submit" value="Login")
-                    i.sign.in.icon 
-                    p Login
+    div.ui.container.height5
+        div.ui.middle.segment.grady
+            div.ui.container
+                label.ui.inverted.black.label.t-align.white.fontJockey.fluid.huge Faculty Performance Monitoring System Login Page
+            div.ui.container.height3
+                if hasText 
+                    .ui.warning.message 
+                        i.close.icon
+                        div.header #{hasText}
+                            p Please Try Again
+            div.ui.horizontal.segments
+                div.ui.segment
+                    form.ui.form(method="POST" action="/login")
+                        div.sixteen.wide.field.iverted
+                            label.white Username
+                            input(type="text" name="username" placeholder="Username")
+                        div.sixteen.wide.field
+                            label.ui.teal Password
+                            input(type="password" name="password")
+                        div.height3
+                            button#but.ui.basic.button.sixteen.wide.black.field.height7(type="submit" value="Login")
+                                i.sign.in.icon 
+                                p Login
+                div.ui.right.aligned.segment
+                    img(src="/assets/Faculty/logo.png" height="250px" width="350px")
+            script.
+                $(document).ready(function(){
+                    $('#head').toggle(
+                        function(){
+                        $('#head').transition('swing down');
+                        }
+                    );
+                });

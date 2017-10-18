@@ -1,0 +1,16 @@
+(function(){
+  window['optimizely'] = window['optimizely'] || [];
+  window['optimizely'].push(['activateGeoDelayedExperiments', {
+    'location':{
+      'city': "SANJUAN",
+      'continent': "AS",
+      'country': "PH",
+      'region': ""
+    },
+    'ip':"180.191.95.131"
+  }]);
+})
+//
+()
+
+;

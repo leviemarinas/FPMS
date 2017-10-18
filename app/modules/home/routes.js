@@ -49,6 +49,9 @@ router.get('faculty/CS/Profile/AddFaculty', (req,res) =>{
 router.get('/maintenance',(req,res) =>{
     res.render('home/views/mainte');
 });
+router.get('/frontpage',(req,res) =>{
+    res.render('home/views/frontpage');
+});
 /**
  * Here we just export said router on the 'index' property of this module.
  */

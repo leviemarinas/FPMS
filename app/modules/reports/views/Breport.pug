@@ -8,12 +8,13 @@ block content
                 .adjustright
                     .ui.huge.right.ribbon.label.violet.adjustright          
                         label.ui Faculty List
-                .ui.simple.dropdown.item Reports
+                #select.ui.simple.dropdown.item.height3 Reports
                     i.dropdown.icon
                     .ui.menu
                         .header Choose Report
                         each period in periods
                             a.ui.item(href=`/reports/${period.strPeriodicalID}`) #{period.strPeriodicalName}
+                
                 .height4
                     table.ui.compact.celled.large.violet.table 
                         th
@@ -35,3 +36,14 @@ block content
                                                 input(type="checkbox" tabindex="0" class="hidden")
                                                 label
                                     td.t-align
+                        script.
+                            $('#select','').dropdown();
+                            $('#multi-select')
+                                .dropdown()
+                            ;
+                            $('#multi-selects')
+                                .dropdown()
+                            ;
+                            $('.menu .item')
+                                .tab()
+                            ;

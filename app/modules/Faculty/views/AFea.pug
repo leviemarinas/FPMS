@@ -112,17 +112,15 @@ block content
                             $(document).on('click', '#add', function() {
 
                                 var template = 
-                                `<div class="ui four fields">\
+                                `<div class="ui three fields">\
                                     <div class ="field">\
                                         <label> Graduate Studies</label>\
                                         <input type="text" name="educ" placeholder="Graduate Studies">\
-                                        </label>\
+                                        <select class="ui selection search dropdown name="educlevel">\ 
+                                            each level in levels'
+                                                <option value="'${level.strEducLevelID}'"> '${level.strEducLevelName}' </option>\
                                     </div>\
-                                    <div class="ui field">\
-                                        <label> Units </label>\
-                                        <input type="number" name="units" placeholder="Units">\
-                                    </div>\
-                                    <div class="ui field">\
+                                    <div class="ui field">
                                         <label> Date Graduated </label>\
                                         <input type="text" name="educdate" placeholder="Date">\
                                     </div>\
@@ -142,7 +140,7 @@ block content
 
 
                             });
-                            $('.ui.form')
+                            $('')
                                 .form({
                                     inline: 'true',
                                     fields: 
@@ -156,12 +154,8 @@ block content
                                             },
                                             {
                                                 type   :'contains[<>]',
-                                                prompt :'script and html tags are not allowed'
+                                                prompt :'script ,html tags and Queries are not allowed'
                                             },
-                                            {
-                                                type   : 'SELECT',
-                                                prompt : 'SQL Commands are not allowed'
-                                            }
                                         ]
 
                                     },
