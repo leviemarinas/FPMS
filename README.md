@@ -36,5 +36,5 @@ Database
 * MySQL should be installed
 
 * A database named dbfpms must be created in mysql
-* The details about the database are in the technical documentation. Please see the technicaldocumentation.docx file. Thank you
+* The details about the database are in the technical documentation. Please see the technical documentation.docx file inside the fpms docu folder. Thank you
 
