@@ -136,6 +136,25 @@ router.post('/:strFacultyID/Educ',(req,res)=>{
         return res.redirect('/faculty');
     })
 });
+router.get('/:strFacultyID/:strEducAttainID',prof,levell,(req,res)=>{
+    db.query(`SELECT * FROM tbleduc where strEducAttainID = "${req.params.strEducAttainID}"`,(err,results,field)=>{
+        return res.render('faculty/views/AFeaf',{profs : req.prof,levels : req.levels,educ : results[0]});
+    });
+});
+router.put('/:strFacultyID/:strEducAttainID',(req,res)=>{
+    db.query(`UPDATE tbleducattain SET
+    strEducAttainName = "${req.body.deg}",
+    strEducAttainSchoolName = "${req.body.suc}",
+    strGradYear = "${req.body.dategrads}",
+    strEducAttainELID = "${req.body.level}",
+    intunits = ${req.body.gradunits}
+    WHERE strEducAttainID = "${req.params.strEducAttainID}"`,(err,results,field)=>{
+        if(err) throw err;
+        return res.redirect('/faculty');
+    });
+});
+
+
 
 
 
