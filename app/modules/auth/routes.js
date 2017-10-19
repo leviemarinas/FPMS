@@ -23,14 +23,14 @@ loginRouter.route('/')
 
             req.session.user = user;
 
-            return res.redirect('/');
+            return res.redirect('/home');
         });
     });
 
 logoutRouter.get('/', (req, res) => {
     req.session.destroy(err => {
         if (err) throw err;
-        res.redirect('/login');
+        res.redirect('/');
     });
 });
 

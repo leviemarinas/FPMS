@@ -8,8 +8,8 @@ block body
                 label.ui.inverted.black.label.t-align.white.fontJockey.fluid.huge Faculty Performance Monitoring System Login Page
             div.ui.container.height3
                 if hasText 
-                    .ui.warning.message 
-                        i.close.icon
+                    #c.ui.warning.message 
+                        i#close.close.icon
                         div.header #{hasText}
                             p Please Try Again
             div.ui.horizontal.segments
@@ -28,10 +28,45 @@ block body
                 div.ui.right.aligned.segment
                     img(src="/assets/Faculty/logo.png" height="250px" width="350px")
             script.
-                $(document).ready(function(){
-                    $('#head').toggle(
-                        function(){
-                        $('#head').transition('swing down');
+                $('.ui.form')
+                    .form({
+                        inline: 'true',
+                        
+                        fields: 
+                        {
+                        username: {
+                            identifier: 'username',
+                            rules: [
+                            {
+                                type   : 'empty',
+                                prompt : 'Please enter a username'
+                            },
+                            ]
+                            
+                        },
+                        password: {
+                            identifier: 'password',
+                            rules: [
+                            {
+                                type   : 'empty',
+                                prompt : 'Please enter a password'
+                            },
+                            {
+                                type   : 'minLength[3]',
+                                prompt : 'Your password must be at least {ruleValue} characters'
+                            },
+                            {
+                                type   : 'match[password]',
+                                prompt : 'incorrect password'  
+                            }
+                            ]
                         }
-                    );
-                });
+                        
+                        }
+                    });
+                    $('#c #close')
+                        .on('click', function() {
+                            $(this)
+                            .closest('.message')
+                        .transition('fade');
+                    });

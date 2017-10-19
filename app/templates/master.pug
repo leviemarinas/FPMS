@@ -3,7 +3,7 @@ extends ./base
 block body
     div.ui.secondary.top.fixed.pointing.menu
         div.right.menu    
-            a.ui.active.item(href="/index") Home
+            a.ui.active.item(href="/home") Home
             div.ui.simple.dropdown.item Faculty
                 i.dropdown.icon
                 div.menu
@@ -30,7 +30,7 @@ block body
                     a.ui.item(href="/schedule/IT") IT
                     a.ui.item(href="/schedule/CS") CS
             a.ui.item(href="/maintenance") Maintenance
-        div.ui.secondary.right.menu
+        div.right.menu
             a.menu.item(href="/logout")     
                 i.sign.out.icon 
                 p Log-out

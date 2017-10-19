@@ -22,7 +22,7 @@ var authMiddleware = require('../auth/middlewares/auth');
 /**
  * Use the middleware to check all routes registered for this router.
  */
-router.use(authMiddleware.hasAuth);
+
 
 /**
  * If you can notice, there's nothing new here except we're declaring the
@@ -49,8 +49,8 @@ router.get('faculty/CS/Profile/AddFaculty', (req,res) =>{
 router.get('/maintenance',(req,res) =>{
     res.render('home/views/mainte');
 });
-router.get('/frontpage',(req,res) =>{
-    res.render('home/views/frontpage');
+router.get('/home',(req,res) =>{
+    res.render('home/views/index');
 });
 /**
  * Here we just export said router on the 'index' property of this module.

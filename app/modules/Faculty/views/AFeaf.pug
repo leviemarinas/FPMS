@@ -8,7 +8,7 @@ block content
             div.ui.huge.adjustleft.teal.label
                 label.ui Faculty
             div.ui.two.fields.height7.pright()
-                form.ui.form(method="POST" action=`/faculty/${profs[0].strFacultyID}/Educ`)
+                form#val.ui.form(method="POST" action=`/faculty/${profs[0].strFacultyID}/Educ`)
                     div.ui.three.fields
                         div.ui.field
                             label.ui Select Studies
@@ -44,3 +44,67 @@ block content
                 $('.menu .item')
                     .tab()
                 ;
+                
+                $('#val')
+                .form({
+                    inline: 'true',
+                    
+                    fields: 
+                    {
+                    lastname: {
+                        identifier: 'lastname',
+                        rules: [
+                        {
+                            type   : 'empty',
+                            prompt : 'Please enter a Last Name'
+                        },
+                        ]
+                        
+                    },
+                    firstname: {
+                        identifier: 'firstname',
+                        rules: [
+                        {
+                            type   : 'empty',
+                            prompt : 'Please enter your First Name'
+                        }
+                        ]
+                    },
+                    address: {
+                        identifier: 'address',
+                        rules: [
+                        {
+                            type   : 'empty',
+                            prompt : 'Please enter your Address'
+                        }
+                        ]
+                    },
+                    birthday: {
+                        identifier: 'birthday',
+                        rules: [
+                        {
+                            type   : 'empty',
+                            prompt : 'Please enter your Birthday'
+                        }
+                        ]
+                    },
+                    mobile: {
+                        identifier: 'mobile',
+                        rules: [
+                        {
+                            type   : 'empty',
+                            prompt : 'Please enter your Mobile Number'
+                        }
+                        ]
+                    },
+                    emailadd: {
+                        identifier: 'emailadd',
+                        rules: [
+                        {
+                            type   : 'empty',
+                            prompt : 'Please enter your Email Address'
+                        }
+                        ]
+                    },
+                    }
+                });

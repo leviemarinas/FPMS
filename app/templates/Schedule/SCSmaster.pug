@@ -1,32 +1,39 @@
-extends ../base
+extends ../base 
 
 block body
     div.ui.secondary.top.fixed.pointing.menu
-            div.right.menu    
-                a.ui.item(href="/index") Home
-                div.ui.simple.dropdown.item Faculty
-                    i.dropdown.icon
-                    div.menu
-                        div.header Department
-                        a.item(href="/faculty/IT") IT
-                        a.item(href="/faculty/CS")  CS
-                div.ui.simple.dropdown.item Reports
-                    i.dropdown.icon
-                    div.menu
-                        div.header Types
-                        a.ui.item(href="/reports") Report List
-                        a.ui.item(href="/reports/Rep/Assign") Assign Reports
-                div.ui.simple.dropdown.item Schedule
-                    i.dropdown.icon.teal
-                    div.menu
-                        div.header Department
-                        a.ui.item(href="/schedule/IT") IT
-                        a.ui.active.teal.item(href="/schedule/CS") CS
-                a.ui.item(href="/maintenance") Maintenance
-            div.ui.right.menu
-                a.menu.item(href="/logout")     
-                    i.sign.out.icon 
-                    p Log-out
+        div.right.menu    
+            a.ui.item(href="/home") Home
+            div.ui.simple.dropdown.item Faculty
+                i.dropdown.icon
+                div.menu
+                    div.header Department
+                    a.ui.item(href="/faculty") Faculty List
+            div.ui.simple.dropdown.active.item Reports
+                i.dropdown.icon.violet
+                div.menu
+                    div.header Types
+                    span.ui.item Functions
+                        div.ui.menu(tab-index="-1")
+                            a.ui.item(href="/functions") Functions List
+                            a.ui.item(href="/functions/func/Assign") Assign Functions
+                            a.ui.item(href="/functions/func/Attendance") Functions Attendance
+                    span.ui.item(href="/reports/documents") Documents
+                        div.ui.menu(tab-index="-1")
+                            a.ui.item(href="/reports") Report List
+                            a.ui.item(href="/reports/Rep/Assign") Report Assigned
+                            a.ui.item(href="/reports/Rep/Submit") Report Submit                            
+            div.ui.simple.dropdown.item Schedule
+                i.dropdown.icon
+                div.menu
+                    div.header Department
+                    a.ui.item(href="/schedule/IT") IT
+                    a.ui.item(href="/schedule/CS") CS
+            a.ui.item(href="/maintenance") Maintenance
+        div.ui.right.menu
+            a.menu.item(href="/logout")     
+                i.sign.out.icon 
+                p Log-out
     block content
         div.ui.container
             div.ui.segment

@@ -8,7 +8,7 @@ block content
                     label.ui Educational Attainment
                 div.height7
                 div.ui.container.inverted.teal
-                    form.ui.form.mleft(method="POST" action=`/faculty/add/EA/${FID}`)
+                    form#val.ui.form.mleft(method="POST" action=`/faculty/add/EA/${FID}`)
                         div.ui.two.fields
                             div.ui.field
                                 label.ui.large.teal.tag Elementary School Name
@@ -41,7 +41,7 @@ block content
                                 input(type="text" name="educdate" placeholder="Date")
                             div.ui.field
                                 label.ui.large.teal.tag Degree Name
-                                input(type="text" name="educname" placeholder="Date")
+                                input(type="text" name="educname" placeholder="EducName")
                         div#gs.height2
                             div.ui.two.fields
                                 div.ui.field
@@ -61,11 +61,8 @@ block content
                                     input(type="text" name="educdate" placeholder="Date")
                                 div.ui.field
                                     label.ui.large.teal.tag Degree Name
-                                    input(type="text" name="educname" placeholder="Date")
+                                    input(type="text" name="educname" placeholder="Educ Name")
                         div#butt.warp2.height
-                            button#add.ui.labeled.orange.icon.button.rightp(type="button")
-                                i.add.icon
-                                p Add Graduate Studies
                             button.ui.labeled.orange.icon.button.rightp(type="submit")
                                 i.add.icon
                                 p Submit
@@ -140,35 +137,40 @@ block content
 
 
                             });
-                            $('')
+                            $('#val')
                                 .form({
                                     inline: 'true',
                                     fields: 
                                     {
-                                    elementary: {
-                                        identifier: 'elementary',
+                                    educ: {
+                                        identifier: 'educ',
                                         rules: [
                                             {
                                                 type   : 'empty',
-                                                prompt : 'Please Enter your Elementary School'
-                                            },
-                                            {
-                                                type   :'contains[<>]',
-                                                prompt :'script ,html tags and Queries are not allowed'
-                                            },
+                                                prompt : 'Please Enter your School, University or College'
+                                            }
                                         ]
 
                                     },
-                                    password: {
-                                        identifier: 'password',
+                                    educdate: {
+                                        identifier: 'educdate',
                                         rules: [
                                         {
                                             type   : 'empty',
-                                            prompt : 'Please enter a password'
+                                            prompt : 'This Field is Required Please enter the Date'
                                         },
                                         {
                                             type   : 'minLength[3]',
                                             prompt : 'Your password must be at least {ruleValue} characters'
+                                        }
+                                        ]
+                                    },
+                                    educname: {
+                                        identifier: 'educname',
+                                        rules: [
+                                        {
+                                            type   : 'empty',
+                                            prompt : 'Please enter your Attainment'
                                         }
                                         ]
                                     }

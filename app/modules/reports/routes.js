@@ -126,6 +126,7 @@ functionRouter.get('/',authMiddleware.hasAuth,profs,(req,res)=>{
 functionRouter.get('/:strFacultyID',authMiddleware.hasAuth,profs,(req,res)=>{
     db.query(`SELECT * from tblfunc where strFacultyID = "${req.params.strFacultyID}"`,(err,results,field)=>{
         if(results[0]==null) res.redirect('/functions')
+        res.locals.name=results[0].strFacultyName;
         return res.render('reports/views/functionlist',{profs : req.profs, funcs : results})
     });
 });
@@ -168,7 +169,7 @@ functionRouter.put('/func/Attendance/:strFacultyID',(req,res)=>{
     bitIsPresent = '1'
     WHERE strFunctionsID = "${req.body.attend}"`,(err,results,field)=>{
         if(err) throw err;
-        res.redirect('/reports');
+        res.redirect('/functions');
     });
 });
 
