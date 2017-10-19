@@ -8,7 +8,7 @@ block content
             div.ui.huge.adjustleft.teal.label
                 label.ui Faculty
             div.ui.two.fields.height7.pright()
-                form#val.ui.form(method="POST" action=`/faculty/${profs[0].strFacultyID}/Educ`)
+                form#val.ui.form(method="POST" action=`/faculty${ educ ? `/${profs[0].strFacultyID}/${educ.strEducAttainID}?_method=PUT` : `/${profs[0].strFacultyID}/Educ`}`)
                     div.ui.three.fields
                         div.ui.field
                             label.ui Select Studies
@@ -18,21 +18,21 @@ block content
                     div.ui.four.fields
                         div.ui.field
                             label School /  University / College
-                            input(type="text" name="suc" placeholder="School")
+                            input(type="text" name="suc" placeholder="School" value= educ ? educ.strEducAttainSchoolName : '')
                         input(type="hidden" name="eaid" value=ID)
                         div.ui.field
                             label Degree
-                            input(type="text" name="deg")
+                            input(type="text" name="deg" value= educ ? educ.strEducAttainName : '')
                         div.ui.field    
                             label Date Graduated
-                            input(type="text" name="dategrads" placeholder="Date Graduated")
+                            input(type="text" name="dategrads" placeholder="Date Graduated" value= educ ? educ.strGradYear : '')
                         div.ui.field
                             label Units
-                            input(type="number" name="gradunits" placeholder="Units")
+                            input(type="number" name="gradunits" placeholder="Units" value= educ ? educ.intunits : '')
                         div.ui.field.height2.pright
-                            button#add.ui.labeled.orange.icon.button.width5.height3()
-                                i.add.icon
-                                p Add 
+                            button#add.ui.labeled.orange.icon.button.width5.height3(type="submit")
+                                i.icon(class= educ ? 'configure' : 'add')
+                                p #{educ ? 'edit':'add'}
             script.
                 $('#select','').dropdown();
                 $('#multi-select')

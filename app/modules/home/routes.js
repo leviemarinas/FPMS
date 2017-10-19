@@ -23,7 +23,6 @@ var authMiddleware = require('../auth/middlewares/auth');
  * Use the middleware to check all routes registered for this router.
  */
 
-
 /**
  * If you can notice, there's nothing new here except we're declaring the
  * route using the router, and not using app.use().
@@ -33,23 +32,7 @@ var authMiddleware = require('../auth/middlewares/auth');
 var indexController = require('./controllers/index');
 router.get('/', indexController);
 
-
-router.get('/faculty/IT/Profile/functions_attended', (req,res) =>{
-    res.render('home/views/ITFA');
-});
-router.get('/faculty/IT/Profile/add?Faculty', (req,res) =>{
-    res.render('home/views/IT?Add');
-});
-router.get('faculty/CS/Profile/FunctionsAttended', (req,res) =>{
-    res.render('home/views/CSFA');
-});
-router.get('faculty/CS/Profile/AddFaculty', (req,res) =>{
-    res.render('faculty/CS/profile/add?faculty');
-});
-router.get('/maintenance',(req,res) =>{
-    res.render('home/views/mainte');
-});
-router.get('/home',(req,res) =>{
+router.get('/home',authMiddleware.hasAuth,(req,res) =>{
     res.render('home/views/index');
 });
 /**
