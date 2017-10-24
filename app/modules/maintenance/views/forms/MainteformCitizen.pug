@@ -7,7 +7,7 @@ block content
             div.ui.ribbon.label.huge.inverted.blue 
                 p #{citizenship ? 'Edit' : 'Add'} Citizenship
             .ui.container.inverted.teal.height3
-                form.ui.form.mleft(method="POST" action=`/maintenance/Citizenship${citizenship ? `/${citizenship.strCitizenshipID}?_method=PUT`: '/new'}`)
+                form#form.ui.form.mleft(method="POST" action=`/maintenance/Citizenship${citizenship ? `/${citizenship.strCitizenshipID}?_method=PUT`: '/new'}`)
                     div.ui.field
                         label.ui.large.teal.tag Citizenship Name
                         input(type="text" name="ctname" value= citizenship ? citizenship.strCitizenshipName : '')
@@ -18,4 +18,24 @@ block content
                         button#add.ui.labeled.orange.icon.button.rightp(type="submit")
                             i.add.icon
                             p #{citizenship ? 'Update' : 'Add'}
-                
+                        a.button.ui.labeled.orange.icon.button.rightp(href="/maintenance/Citizenship")
+                                i.add.icon
+                                p Back
+                        script.
+                            $('#form')
+                            .form({
+                                inline: 'true',
+                                fields: {
+                                ctname: {
+                                    identifier: 'ctname',
+                                    rules: [
+                                    {
+                                        type   : 'empty',
+                                        prompt : 'Please enter a Value, Field is Required and Cannot be blank'
+                                    }
+                                    ]
+                                    
+                                    }
+                                }
+                                });
+                    

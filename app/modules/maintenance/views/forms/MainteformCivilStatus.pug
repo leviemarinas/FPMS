@@ -7,7 +7,7 @@ block content
             div.ui.ribbon.label.huge.inverted.blue 
                 p #{CivilStatus ? 'Edit' : 'Add'} CivilStatus
             .ui.container.inverted.teal.height3
-                form.ui.form.mleft(method="POST" action=`/maintenance/CivilStatus${CivilStatus ? `/${CivilStatus.strCivilStatusID}?_method=PUT`: '/new'}`)
+                form#form.ui.form.mleft(method="POST" action=`/maintenance/CivilStatus${CivilStatus ? `/${CivilStatus.strCivilStatusID}?_method=PUT`: '/new'}`)
                     div.ui.field
                         label.ui.large.teal.tag CivilStatus Name
                         input(type="text" name="csname" value= CivilStatus ? CivilStatus.strCivilStatusName : '')
@@ -18,3 +18,24 @@ block content
                         button#add.ui.labeled.orange.icon.button.rightp(type="submit")
                             i.add.icon
                             p #{CivilStatus ? 'Update' : 'Add'}
+                        a.button.ui.labeled.orange.icon.button.rightp(href="/maintenance/CivilStatus")
+                            i.add.icon
+                            p Back
+                        script.
+                            $('#form')
+                            .form({
+                                inline: 'true',
+                                fields: {
+                                csname: {
+                                    identifier: 'csname',
+                                    rules: [
+                                    {
+                                        type   : 'empty',
+                                        prompt : 'Please enter a Value, Field is Required and Cannot be blank'
+                                    }
+                                    ]
+                                    
+                                    }
+                                }
+                                });
+                    

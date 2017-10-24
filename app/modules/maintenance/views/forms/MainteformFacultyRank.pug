@@ -6,8 +6,8 @@ block content
             div.ui.container
             div.ui.ribbon.label.huge.inverted.blue 
                 p #{FacultyRank ? 'Edit' : 'Add'} Faculty Rank
-        .ui.container.inverted.teal.height3
-                form.ui.form.mleft(method="POST" action=`/maintenance/FacultyRank${FacultyRank ? `/${FacultyRank.strFacultyRankRefID}?_method=PUT`: '/new'}`)
+            .ui.container.inverted.teal.height3
+                form#form.ui.form.mleft(method="POST" action=`/maintenance/FacultyRank${FacultyRank ? `/${FacultyRank.strFacultyRankRefID}?_method=PUT`: '/new'}`)
                     div.ui.field
                         label.ui.large.teal.tag Faculty Rank
                         input(type="text" name="frname" value= FacultyRank ? FacultyRank.strFacultyRankName : '')
@@ -18,3 +18,24 @@ block content
                         button#add.ui.labeled.orange.icon.button.rightp(type="submit")
                             i.add.icon
                             p #{FacultyRank ? 'Update' : 'Add'}
+                        a.button.ui.labeled.orange.icon.button.rightp(href="/maintenance/FacultyRank")
+                            i.add.icon
+                            p Back
+                        script.
+                            $('#form')
+                            .form({
+                                inline: 'true',
+                                fields: {
+                                frname: {
+                                    identifier: 'frname',
+                                    rules: [
+                                    {
+                                        type   : 'empty',
+                                        prompt : 'Please enter a Value, Field is Required and Cannot be blank'
+                                    }
+                                    ]
+                                    
+                                    }
+                                }
+                                });
+                    

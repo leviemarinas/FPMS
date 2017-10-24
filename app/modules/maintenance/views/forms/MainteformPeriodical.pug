@@ -7,7 +7,7 @@ block content
             div.ui.ribbon.label.huge.inverted.blue 
                 p #{Periodical ? 'Edit' : 'Add'} Period
             .ui.container.inverted.teal.height3
-                form.ui.form.mleft(method="POST" action=`/maintenance/Periodical${Periodical ? `/${Periodical.strPeriodicalID}?_method=PUT`: '/new'}`)
+                form#form.ui.form.mleft(method="POST" action=`/maintenance/Periodical${Periodical ? `/${Periodical.strPeriodicalID}?_method=PUT`: '/new'}`)
                     div.ui.field
                         label.ui.large.teal.tag Period Name
                         input(type="text" name="pname" value= Periodical ? Periodical.strPeriodicalName : '')
@@ -18,3 +18,24 @@ block content
                         button#add.ui.labeled.orange.icon.button.rightp(type="submit")
                             i.add.icon
                             p #{Periodical ? 'Update' : 'Add'}
+                        a.button.ui.labeled.orange.icon.button.rightp(href="/maintenance/Periodical")
+                            i.add.icon
+                            p Back
+                        script.
+                            $('#form')
+                            .form({
+                                inline: 'true',
+                                fields: {
+                                pname: {
+                                    identifier: 'pname',
+                                    rules: [
+                                    {
+                                        type   : 'empty',
+                                        prompt : 'Please enter a Value, Field is Required and Cannot be blank'
+                                    }
+                                    ]
+                                    
+                                    }
+                                }
+                                });
+                    

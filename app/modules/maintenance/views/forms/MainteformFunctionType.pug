@@ -5,11 +5,11 @@ block content
         div.ui.segment.ping.p-adjust
             div.ui.container
             div.ui.ribbon.label.huge.inverted.blue 
-                p #{FunctionType ? 'Edit' : 'Add'} FunctionType
+                p #{FunctionType ? 'Edit' : 'Add'} Function Type
             .ui.container.inverted.teal.height3
-                form.ui.form.mleft(method="POST" action=`/maintenance/Functions${FunctionType ? `/${FunctionType.strFuncRefID}?_method=PUT`: '/new'}`)
+                form#form.ui.form.mleft(method="POST" action=`/maintenance/Functions${FunctionType ? `/${FunctionType.strFuncRefID}?_method=PUT`: '/new'}`)
                     div.ui.field
-                        label.ui.large.teal.tag FunctionType Name
+                        label.ui.large.teal.tag Function Type Name
                         input(type="text" name="ftname" value= FunctionType ? FunctionType.strFuncRefName : '')
                     if(!FunctionType)
                         div.ui.field
@@ -18,3 +18,21 @@ block content
                         button#add.ui.labeled.orange.icon.button.rightp(type="submit")
                             i.add.icon
                             p #{FunctionType ? 'Update' : 'Add'}
+                        a.button.ui.labeled.orange.icon.button.rightp(href="/maintenance/Functions")
+                            i.add.icon
+                            p Back
+                        script.
+                            $('#form')
+                            .form({
+                                inline: 'true',
+                                fields: {
+                                ftname: {
+                                    identifier: 'ftname',
+                                    rules: [
+                                    {
+                                        type   : 'empty',
+                                        prompt : 'Please enter a Value, Field is Required and Cannot be blank'
+                                    }
+                                }
+                                });
+                    

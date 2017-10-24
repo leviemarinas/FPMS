@@ -7,7 +7,7 @@ block content
             div.ui.ribbon.label.huge.inverted.blue 
                 p #{EmployeeType ? 'Edit' : 'Add'} Employee Type
             .ui.container.inverted.teal.height3
-                form.ui.form.mleft(method="POST" action=`/maintenance/EmployeeType${EmployeeType ? `/${EmployeeType.strEmployeeTypeID}?_method=PUT`: '/new'}`)
+                form#form.ui.form.mleft(method="POST" action=`/maintenance/EmployeeType${EmployeeType ? `/${EmployeeType.strEmployeeTypeID}?_method=PUT`: '/new'}`)
                     div.ui.field
                         label.ui.large.teal.tag Employee Type
                         input(type="text" name="etname" value= EmployeeType ? EmployeeType.strEmployeeTypeName : '')
@@ -18,3 +18,25 @@ block content
                         button#add.ui.labeled.orange.icon.button.rightp(type="submit")
                             i.add.icon
                             p #{EmployeeType ? 'Update' : 'Add'}
+                        a.button.ui.labeled.orange.icon.button.rightp(href="/maintenance/EmployeeType")
+                            i.add.icon
+                            p Back
+                        script.
+                            $('#form')
+                            .form({
+                                inline: 'true',
+                                fields: {
+                                etname: {
+                                    identifier: 'etname',
+                                    rules: [
+                                    {
+                                        type   : 'empty',
+                                        prompt : 'Please enter a Value, Field is Required and Cannot be blank'
+                                    }
+                                    ]
+                                    
+                                    }
+                                }
+                                });
+                    
+                        

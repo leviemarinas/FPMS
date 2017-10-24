@@ -14,10 +14,10 @@ block content
                 p #{admin ? 'Edit' : 'Add'} Admin
                     i.add.icon
             div.ui.container.inverted.teal.height3
-                form.ui.form.mleft(method="POST" action=`/maintenance/Admin${admin ? `/${admin.strUsername}?_method=PUT` : '/new'}`)
+                form#form.ui.form.mleft(method="POST" action=`/maintenance/Admin${admin ? `/${admin.strUsername}?_method=PUT` : '/new'}`)
                     div.ui.field
                         label.ui.large.teal.tag Faculty 
-                        select.ui.selection.search.dropdown(name="faculty") 
+                        select#dr.ui.selection.search.dropdown(name="faculty") 
                             each Faculty in faculties
                                 option(value=Faculty.strFacultyID) #{Faculty.strFacultyFirstname +' '+ Faculty.strFacultySurname}
                     div.ui.field
@@ -34,5 +34,56 @@ block content
                             button#add.ui.labeled.orange.icon.button.rightp()
                                 i.add.icon
                                 p #{admin ? 'Update' : 'Add'}
-            
-                
+                            a.button.ui.labeled.orange.icon.button.rightp(href="/maintenance/admin")
+                                i.add.icon
+                                p Back
+
+                            script.
+                                $('#dr').dropdown();
+                                $('#form')
+                                .form({
+                                    inline: 'true',
+                                    
+                                    fields: 
+                                    {
+                                    adminpassword: {
+                                        identifier: 'adminpassword',
+                                        rules: [
+                                        {
+                                            type   : 'empty',
+                                            prompt : 'Please enter a password, Field is Required'
+                                        }
+                                        ]
+                                        
+                                    },
+                                    adminusername: {
+                                        identifier: 'adminusername',
+                                        rules: [
+                                        {
+                                            type   : 'empty',
+                                            prompt : 'Please enter a username, Field is Required'
+                                        },
+                                        ]
+                                        
+                                    },
+                                    adminconfirmpassword: {
+                                        identifier: 'adminconfirmpassword',
+                                        rules: [
+                                        {
+                                            type   : 'empty',
+                                            prompt : 'Please enter your password, Field is Required'
+                                        },
+                                        {
+                                            type   : 'match[adminusername]',
+                                            prompt : 'Passwords Do not Match'
+                                        },
+                                        {
+                                            type   : 'is[<>]',
+                                            prompt : 'Field Cannot Contain Script or HTML tags'
+                                        }
+                                        ]
+                                        
+                                    }
+                                    }
+                                    });                                    
+                    
