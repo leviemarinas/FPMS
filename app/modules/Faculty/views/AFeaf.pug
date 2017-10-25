@@ -8,7 +8,7 @@ block content
             div.ui.huge.adjustleft.teal.label
                 label.ui Faculty
             div.ui.two.fields.height7.pright()
-                form#val.ui.form(method="POST" action=`/faculty${ educ ? `/${profs[0].strFacultyID}/${educ.strEducAttainID}?_method=PUT` : `/${profs[0].strFacultyID}/Educ`}`)
+                form#val.ui.form(method="POST" action=`/faculty${ educ ? `/${profs[0].strFacultyID}/Educ/${educ.strEducAttainID}?_method=PUT` : `/${profs[0].strFacultyID}/Educ`}`)
                     div.ui.three.fields
                         div.ui.field
                             label.ui Select Studies
@@ -25,9 +25,12 @@ block content
                             input(type="text" name="deg" value= educ ? educ.strEducAttainName : '')
                         div.ui.field    
                             label Date Graduated
-                            input(type="text" name="dategrads" placeholder="Date Graduated" value= educ ? educ.strGradYear : '')
+                            select#select.search.selection.dropdown(name="dategrads")
+                                    option(value='')   
+                                    each year in years
+                                        option(value=year) #{year} 
                         div.ui.field
-                            label Units
+                            label Current Units
                             input(type="number" name="gradunits" placeholder="Units" value= educ ? educ.intunits : '')
                         div.ui.field.height2.pright
                             button#add.ui.labeled.orange.icon.button.width5.height3(type="submit")

@@ -21,7 +21,7 @@ block content
                 th
                     each Fprofile in Fprofiles
                         tr
-                            th.tp.t-align: a(href=`/faculty/${Fprofile.strFacultyID}`)= Fprofile.strFacultyID
+                            th.tp.t-align: a(href=`/faculty/${Fprofile.strFacultyID}?active=info`)= Fprofile.strFacultyID
                             th.t-align= Fprofile.strFacultySurname
                             th.t-align= Fprofile.strFacultyFirstname
                             th.t-align= Fprofile.strFacultyMiddlename

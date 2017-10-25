@@ -26,7 +26,6 @@ block content
                                 th.two.wide Functions Level
                                 th.two.wide Functions Sponsor
                                 th.two.wide Functions Date
-                                th.two.wide Attendance
                         th
                             each func in funcs                        
                                 tr
@@ -35,14 +34,6 @@ block content
                                     td=func.strFunctLevelName
                                     td=func.strFunctionsSponsor
                                     td.t-align=func.datFunctionDate
-                                    td
-                                        .ui.read-only.checkbox
-                                            if func.bitIsPresent != 0    
-                                                input(type="checkbox" checked tabindex="0" class="hidden")
-                                                label
-                                            else
-                                                input(type="checkbox" tabindex="0" class="hidden")
-                                                label
                                         script.
                                             $('#select','').dropdown();
                                             $('#multi-select')

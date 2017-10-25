@@ -93,13 +93,25 @@ function level(req,res,next){
        next();
     });
 }
+function years(req,res,next){
+    var date = new Date,
+    years = [],
+    year = date.getFullYear();
+
+    for(var i = year, g=0; i > year - 90; i--,g++){
+        years[g] = i;
+    }
+    console.log(years);
+    req.years = years;
+    return next();
+}
 
 
-router.get('/add/EA/:strFacultyID',authMiddleware.hasAuth,level,(req,res)=>{
+router.get('/add/EA/:strFacultyID',authMiddleware.hasAuth,level,years,(req,res)=>{
     db.query(`SELECT MAX(strEducAttainID) as strEducAttainID FROM tbleducattain`,(err,results,field)=>{
         res.locals.ID = results[0].strEducAttainID;
         res.locals.FID = req.params.strFacultyID;
-        return res.render('faculty/views/AFea',{levels : req.level});
+        return res.render('faculty/views/AFea',{levels : req.level, years : req.years});
     });
 });
 router.post('/add/EA/:strFacultyID',(req,res)=>{
@@ -126,11 +138,11 @@ function levell(req,res,next){
     });
 }
 
-router.get('/:strFacultyID/Educ',prof,levell,(req,res)=>{
+router.get('/:strFacultyID/Educ',authMiddleware.hasAuth,prof,levell,years,(req,res)=>{
     db.query(`SELECT max(strEducAttainID) AS strEducAttainID FROM tbleducattain`,(err,results,field)=>{
         console.log('Educ')
         res.locals.ID = results[0].strEducAttainID;
-        return res.render('faculty/views/AFeaf',{profs : req.prof, levels : req.levels})
+        return res.render('faculty/views/AFeaf',{profs : req.prof, levels : req.levels,years : req.years})
     });
 });
 router.post('/:strFacultyID/Educ',(req,res)=>{
@@ -140,10 +152,10 @@ router.post('/:strFacultyID/Educ',(req,res)=>{
         return res.redirect(`/faculty/${req.params.strFacultyID}?active=educ`);
     })
 });
-router.get('/:strFacultyID/Educ/:strEducAttainID',prof,levell,(req,res)=>{
+router.get('/:strFacultyID/Educ/:strEducAttainID',authMiddleware.hasAuth,prof,levell,years,(req,res)=>{
     db.query(`SELECT * FROM tbleduc where strEducAttainID = "${req.params.strEducAttainID}"`,(err,results,field)=>{
         console.log('here');
-        return res.render('faculty/views/AFeaf',{profs : req.prof,levels : req.levels,educ : results[0]});
+        return res.render('faculty/views/AFeaf',{profs : req.prof,levels : req.levels,educ : results[0],years : req.years});
     });
 });
 router.put('/:strFacultyID/Educ/:strEducAttainID',(req,res)=>{
@@ -212,7 +224,7 @@ router.post('/:strFacultyID/WorkExp',(req,res)=>{
     newID = counter.smart(req.body.weid)
     db.query(`INSERT INTO tblworkexp VALUES ("${newID}","${req.body.workex}","${req.params.strFacultyID}","${req.body.year}")`,(err,results,field)=>{
         if(err) throw err;
-        res.redirect(`/faculty`);
+        res.redirect(`/faculty/${req.params.strFacultyID}?active=exp`);
     });
 });
 
@@ -234,7 +246,7 @@ router.post('/:strFacultyID/rank',(req,res)=>{
     var newID = counter.smart(req.body.frid);
     db.query(`INSERT INTO tblfacultyrank VALUES ("${newID}","${req.body.dateofeffect}","${req.params.strFacultyID}","${req.body.rank}")`,(err,results,field)=>{
         if(err) throw err;
-        res.redirect('/faculty');
+        res.redirect(`/faculty/${req.params.strFacultyID}?active=rank`);
     });
 });
 

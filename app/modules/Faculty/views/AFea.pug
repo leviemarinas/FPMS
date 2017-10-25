@@ -18,8 +18,10 @@ block content
                             input(type="hidden" name="eaid" value=ID)
                             input(type="hidden" name="units" value="0")
                             div.ui.field
-                                label.ui.large.teal.tag Date Graduated
-                                input(type="text" name="educdate" placeholder="Date")            
+                                label.ui Date Graduated
+                                select#select.search.selection.dropdown(name="educdate")
+                                    each year in years
+                                        option(value=year) #{year}            
                         div.ui.two.fields
                             div.ui.field
                                 label.ui.large.teal.tag High School Name
@@ -28,8 +30,10 @@ block content
                             input(type="hidden" name="educlevel" value="EL-0002")
                             input(type="hidden" name="units" value="0")
                             div.ui.field
-                                label.ui.large.teal.tag Date Graduated
-                                input(type="text" name="educdate" placeholder="Date")
+                                label.ui Date Graduated
+                                select#select.search.selection.dropdown(name="educdate")
+                                    each year in years
+                                        option(value=year) #{year} 
                         div.ui.three.fields
                             div.ui.field
                                 label.ui.large.teal.tag College/University Name
@@ -37,8 +41,11 @@ block content
                             input(type="hidden" name="educlevel" value="EL-0003")
                             input(type="hidden" name="units" value="0")
                             div.ui.field
-                                label.ui.large.teal.tag Date Graduated
-                                input(type="text" name="educdate" placeholder="Date")
+                                label.ui Date Graduated
+                                select#select.search.selection.dropdown(name="educdate")
+                                    option(value=' ')
+                                    each year in years
+                                        option(value=year) #{year} 
                             div.ui.field
                                 label.ui.large.teal.tag Degree Name
                                 input(type="text" name="educname" placeholder="EducName")
@@ -48,7 +55,7 @@ block content
                                     label.ui.larg.tag Graduate Studies 
                                     input(type="text" name="educ" placeholder="Graduate Studies")
                                 div.ui.field
-                                    label.ui.large.teal.tag Units
+                                    label.ui.large.teal.tag Current Units
                                     input(type="number" name="units" placeholder="Units")
                             div.ui.three.fields
                                 div.ui.field
@@ -57,8 +64,10 @@ block content
                                         each level in levels
                                             option(value=level.strEducLevelID) #{level.strEducLevelName}
                                 div.ui.field
-                                    label.ui.large.teal.tag Date Graduated
-                                    input(type="text" name="educdate" placeholder="Date")
+                                label.ui Date Graduated
+                                select#select.search.selection.dropdown(name="educdate")
+                                    each year in years
+                                        option(value=year) #{year} 
                                 div.ui.field
                                     label.ui.large.teal.tag Degree Name
                                     input(type="text" name="educname" placeholder="Educ Name")
@@ -67,6 +76,7 @@ block content
                                 i.add.icon
                                 p Submit
                         script.
+                            $('#select').dropdown();
                             $(document).ready(function(){
                             //$('form').form('validate');
 
@@ -151,19 +161,6 @@ block content
                                             }
                                         ]
 
-                                    },
-                                    educdate: {
-                                        identifier: 'educdate',
-                                        rules: [
-                                        {
-                                            type   : 'empty',
-                                            prompt : 'This Field is Required Please enter the Date'
-                                        },
-                                        {
-                                            type   : 'minLength[3]',
-                                            prompt : 'Your password must be at least {ruleValue} characters'
-                                        }
-                                        ]
                                     },
                                     educname: {
                                         identifier: 'educname',

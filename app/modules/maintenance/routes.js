@@ -141,6 +141,48 @@ router.get('/CivilStatus/:strCivilStatusID/remove',(req,res)=>{
     });
 });
 
+//DEPARTMENT-DEPARTMENT-DEPARTMENT-DEPARTMENT-DEPARTMENT-DEPARTMENT-DEPARTMENT-DEPARTMENT-DEPARTMENT-DEPARTMENT-DEPARTMENT-DEPARTMENT-DEPARTMENT-DEPARTMENT-
+
+router.get('/Department',authMiddleware.hasAuth,(req,res)=>{
+    db.query(`select * from tbldepartment`,(err,results,field)=>{
+        return res.render('maintenance/views/pages/MainteDepartment',{civils : results});
+    });
+});
+router.get('/Department/new',authMiddleware.hasAuth,(req,res)=>{
+    db.query(`SELECT max(strDepartmentID) AS strDepartmentID FROM tbldepartment`,(err,results,field)=>{
+        res.locals.ID = results[0].strDepartmentID; 
+        return res.render('maintenance/views/forms/MainteformDepartment');
+    });
+});
+router.post('/Department/new',(req,res)=>{
+    var newID = counter.smart(req.body.did);
+    db.query(`INSERT INTO tbldepartment (strDepartmentID,strDepartmentName) VALUES ("${newID}","${req.body.dname}");`,(err,results,field)=>{
+        if(err) throw err;
+        return res.redirect('/maintenance/Department');
+    })
+});
+router.get('/Department/:strDepartmentID',authMiddleware.hasAuth,(req,res)=>{
+    db.query(`SELECT * FROM tbldepartment where strDepartmentID =  "${req.params.strDepartmentID}"`,(err,results,field)=>{
+        if(err) throw err;
+        if(results[0]==null) res.redirect('/maintenance/Department');
+        res.render('maintenance/views/forms/MainteformDepartment',{Department : results[0]});
+    })
+});
+router.put('/Department/:strDepartmentID',(req,res)=>{
+    db.query(`UPDATE tbldepartment SET 
+    strDepartmentName = "${req.body.dname}" 
+    WHERE strDepartmentID = "${req.params.strDepartmentID}"`,(err,results,field)=>{
+        if(err) throw err;
+        res.redirect('/maintenance/Department');
+    });
+});
+router.get('/Department/:strDepartmentID/remove',(req,res)=>{
+    db.query(`DELETE FROM tbldepartment WHERE strDepartmentID = "${req.params.strDepartmentID}"`,(err,results,field)=>{
+        if(err) throw err;
+        res.redirect('/maintenance/Department');
+    });
+});
+
 //EDUCLEVEL-EDUCLEVEL-EDUCLEVEL-EDUCLEVEL-EDUCLEVEL-EDUCLEVEL-EDUCLEVEL-EDUCLEVEL-EDUCLEVEL-EDUCLEVEL-EDUCLEVEL-EDUCLEVEL-EDUCLEVEL-EDUCLEVEL-EDUCLEVEL
 
 router.get('/EducLevel',authMiddleware.hasAuth,(req,res)=>{

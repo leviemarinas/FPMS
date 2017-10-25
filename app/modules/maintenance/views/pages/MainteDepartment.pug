@@ -1,0 +1,23 @@
+extends ../../../../templates/Maintemaster
+
+block content
+    div.ui.centerer
+        div.ui.segment.ping.p-adjust
+            div.ui.container
+            div.ui.ribbon.label.huge.inverted.blue 
+                p Department
+                    i.configure.icon
+            a.button.green.right.floated.ui.basic.button.huge(href="/maintenance/Department/new")
+                i.add.icon
+                |&nbsp; Add Department
+            table.ui.padded.yellow.table   
+                th
+                    tr
+                        th.eleven.wide.tp.t-align Department
+                        th.tp Actions  
+                    each civil in civils    
+                        tr
+                            td=civil.strDepartmentName
+                            td
+                                a(href=`/maintenance/Department/${civil.strDepartmentID}`): i.ui.green.address.edit.icon.large
+                                a(href=`/maintenance/Department/${civil.strDepartmentID}/remove`): i.ui.green.remove.icon.large

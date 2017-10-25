@@ -3,6 +3,8 @@ var functionRouter = require('express').Router();
 var db = require('../../lib/database')();
 var authMiddleware = require('../auth/middlewares/auth');
 var counter = require('../auth/middlewares/SC');
+var multer  = require('multer')
+var upload = multer({ dest: 'public/assets/files/' })
 
 
 function periods(req, res, next){
@@ -89,8 +91,10 @@ router.get('/Rep/Submit',authMiddleware.hasAuth,profs,(req,res)=>{
 }); 
 
 router.get('/Rep/Submit/:strFacultyID',authMiddleware.hasAuth,profs,submit,(req,res)=>{
-    res.locals.PASS = 0;
-    res.render('reports/views/ReportSubmit',{submits : req.submit,profs:req.profs});   
+    db.query(`SELECT * FROM tblfacultyprofile where strFacultyID = "${req.params.strFacultyID}"`,(err,results,field)=>{
+        res.locals.PASS = 0;
+        return res.render('reports/views/ReportSubmit',{submits : req.submit,profs:req.profs,proff:results[0]});   
+    });
 });
 
 router.put('/Rep/Submit/:strFacultyID',(req,res)=>{
@@ -148,31 +152,6 @@ functionRouter.post('/func/Assign',(req,res)=>{
     }
     res.redirect('/functions');
 });
-
-function attend(req,res,next){
-    db.query(`SELECT * FROM tblfunc WHERE strFacultyID = "${req.params.strFacultyID}" and bitIsPresent = 0`,(err,results,field)=>{
-        req.attends = results;
-        return next();
-    });
-}
-
-functionRouter.get('/func/Attendance',authMiddleware.hasAuth,profs,(req,res)=>{
-    res.locals.PASS = 1;
-    res.render('reports/views/functionattendance',{profs : req.profs});
-}); 
-functionRouter.get('/func/Attendance/:strFacultyID',authMiddleware.hasAuth,profs,attend,(req,res)=>{
-    res.locals.PASS = 0;
-    res.render('reports/views/functionattendance',{profs:req.profs, attends : req.attends});   
-});
-functionRouter.put('/func/Attendance/:strFacultyID',(req,res)=>{
-    db.query(`UPDATE tblfunctions SET 
-    bitIsPresent = '1'
-    WHERE strFunctionsID = "${req.body.attend}"`,(err,results,field)=>{
-        if(err) throw err;
-        res.redirect('/functions');
-    });
-});
-
 
 
 

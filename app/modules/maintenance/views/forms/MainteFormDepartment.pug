@@ -1,0 +1,23 @@
+extends ../../../../templates/Maintemaster
+
+block content
+    div.ui.centerer
+        div.ui.segment.ping.p-adjust
+            div.ui.container
+            div.ui.ribbon.label.huge.inverted.blue 
+                p #{Department ? 'Edit' : 'Add'} Department
+            .ui.container.inverted.teal.height3
+                form#form.ui.form.mleft(method="POST" action=`/maintenance/Department${Department ? `/${Department.strDepartmentID}?_method=PUT`: '/new'}`)
+                    div.ui.field
+                        label.ui.large.teal.tag Department Name
+                        input(type="text" name="dname" value= Department ? Department.strDepartmentName : '')
+                    if(!Department)
+                        div.ui.field
+                            input(type="hidden" name="did" value=ID)
+                    div#butt.warp2.height2
+                        button#add.ui.labeled.orange.icon.button.rightp(type="submit")
+                            i.add.icon
+                            p #{Department ? 'Update' : 'Add'}
+                        a.button.ui.labeled.orange.icon.button.rightp(href="/maintenance/Department")
+                            i.add.icon
+                            p Back
