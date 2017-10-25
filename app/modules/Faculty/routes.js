@@ -4,7 +4,10 @@ var authMiddleware = require('../auth/middlewares/auth');
 var counter = require('../auth/middlewares/SC');
 
 
-
+router.use((req, res, next) => {
+    res.locals.activeTab = req.query.active;
+    return next();
+});
 
 router.get('/',authMiddleware.hasAuth,(req,res)=>{
     db.query(`select * from tblfp where is_Deleted = "0"`,(err,results,field)=>{
@@ -125,6 +128,7 @@ function levell(req,res,next){
 
 router.get('/:strFacultyID/Educ',prof,levell,(req,res)=>{
     db.query(`SELECT max(strEducAttainID) AS strEducAttainID FROM tbleducattain`,(err,results,field)=>{
+        console.log('Educ')
         res.locals.ID = results[0].strEducAttainID;
         return res.render('faculty/views/AFeaf',{profs : req.prof, levels : req.levels})
     });
@@ -133,15 +137,16 @@ router.post('/:strFacultyID/Educ',(req,res)=>{
     var newID = counter.smart(req.body.eaid);
     db.query(`INSERT INTO tbleducattain values("${newID}","${req.body.deg}","${req.body.suc}","${req.body.dategrads}","${req.body.level}","${req.params.strFacultyID}",${req.body.gradunits})`,(err,results,field)=>{
         if(err) throw err;
-        return res.redirect('/faculty');
+        return res.redirect(`/faculty/${req.params.strFacultyID}?active=educ`);
     })
 });
-router.get('/:strFacultyID/:strEducAttainID',prof,levell,(req,res)=>{
+router.get('/:strFacultyID/Educ/:strEducAttainID',prof,levell,(req,res)=>{
     db.query(`SELECT * FROM tbleduc where strEducAttainID = "${req.params.strEducAttainID}"`,(err,results,field)=>{
+        console.log('here');
         return res.render('faculty/views/AFeaf',{profs : req.prof,levels : req.levels,educ : results[0]});
     });
 });
-router.put('/:strFacultyID/:strEducAttainID',(req,res)=>{
+router.put('/:strFacultyID/Educ/:strEducAttainID',(req,res)=>{
     db.query(`UPDATE tbleducattain SET
     strEducAttainName = "${req.body.deg}",
     strEducAttainSchoolName = "${req.body.suc}",
@@ -197,7 +202,7 @@ router.get('/:strFacultyID',authMiddleware.hasAuth,educ,prof,work,ranks,renderPr
 
 router.get('/:strFacultyID/WorkExp',authMiddleware.hasAuth,prof,(req,res)=>{
     db.query(`SELECT MAX(strWorkExpID) AS strWorkExpID FROM tblworkexp`,(err,results,field)=>{
-        console.log(results[0].strWorkExpID);
+        console.log('WORK EXP', results[0].strWorkExpID);
         res.locals.workID = results[0].strWorkExpID;
         return res.render('Faculty/views/AFWorkExperience',{profs : req.prof});
     });

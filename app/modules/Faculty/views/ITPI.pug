@@ -4,11 +4,11 @@ block content
     div.ui.s.adjusted.ping
         div.ui.container
             div.ui.top.attached.tabular.menu.height2
-                a.active.item(data-tab="First") Personal Information
-                a.item(data-tab="Second") Educational Attainment
-                a.item(data-tab="Third") Faculty Rank
-                a.item(data-tab="Fourth") Work Experience
-            div.ui.active.bottom.attached.tab.segment(data-tab="First") 
+                a.item(class= (activeTab === 'info' ? 'active' : '') data-tab="First") Personal Information
+                a.item(class= (activeTab === 'educ' ? 'active' : '') data-tab="Second") Educational Attainment
+                a.item(class= (activeTab === 'rank' ? 'active' : '') data-tab="Third") Faculty Rank
+                a.item(class= (activeTab === 'exp' ? 'active' : '') data-tab="Fourth") Work Experience
+            div.ui.bottom.attached.tab.segment(class= (activeTab === 'info' ? 'active' : '') data-tab="First") 
                 div.ui.ribbon.label.inverted.black.large
                     h3 Personal Information
                 div.ui.segment.height.b-adjusted
@@ -41,7 +41,7 @@ block content
                                     tr 
                                         td Email Address
                                         td= prof.strFacultyEmail 
-            div.ui.bottom.attached.tab.segment(data-tab="Second")
+            div.ui.bottom.attached.tab.segment(class= (activeTab === 'educ' ? 'active' : '') data-tab="Second")
                 div.ui.ribbon.label.inverted.black.large
                     h3 Educational Attainment
                 div.ui.segment.height.b-adjusted
@@ -75,7 +75,7 @@ block content
                                                 td
                                                     b Units
                                                 td= educ.intunits                     
-            div.ui.bottom.attached.tab.segment(data-tab="Third")
+            div.ui.bottom.attached.tab.segment(class= (activeTab === 'rank' ? 'active' : '') data-tab="Third")
                 div.ui.ribbon.label.inverted.black.large
                     h3 Ranks Achieved
                 div.ui.segment.height.b-adjusted                
@@ -98,7 +98,7 @@ block content
                                         tr.t-align
                                             td=rank.strFacultyRankName
                                             td=rank.datDateofEffectivity
-            div.ui.bottom.attached.tab.segment(data-tab="Fourth")
+            div.ui.bottom.attached.tab.segment(class= (activeTab === 'exp' ? 'active' : '') data-tab="Fourth")
                 div.ui.ribbon.label.inverted.black.large
                     h3 Work Experience
                 div.ui.segment.height.b-adjusted

@@ -37199,6 +37199,19 @@ body.pushable > .pusher {
   top: 0;
   height: 450px;
 }
+.body{
+  background-image: url(../Faculty/DuskG.png);
+  height: width;
+  background-attachment: absolute;
+  background-size: cover;
+  background-position: center top;
+  background-position-x: center;
+  background-position-y: top;
+  background-color: #000000;
+  width: 100%;
+  top: 0;
+  height: 450px;
+}
 .bo{
 bottom: 0px;
 }
